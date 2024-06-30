@@ -16,8 +16,6 @@ export default function ScreensContainer() {
         height: 800,
     });
 
-    const [data, setData] = useState<any>({});
-
     const topScreen = useRef<HTMLDivElement>(null);
     const bottomScreen = useRef<HTMLDivElement>(null);
     const container = useRef<HTMLDivElement>(null);
@@ -29,7 +27,7 @@ export default function ScreensContainer() {
         border: '1px solid black',
     };
 
-    const getScreenDimensions = (screen: RefObject<HTMLDivElement>) => {
+    const getScreenPositionData = (screen: RefObject<HTMLDivElement>) => {
         if (!screen.current || !container.current) {
             return;
         }
@@ -48,13 +46,9 @@ export default function ScreensContainer() {
     
     const onClick = () => {
         const data = {
-            topScreen: getScreenDimensions(topScreen),
-            bottomScreen: getScreenDimensions(bottomScreen),
+            topScreen: getScreenPositionData(topScreen),
+            bottomScreen: getScreenPositionData(bottomScreen),
         };
-        // setData({
-        //     topScreen: getScreenDimensions(topScreen),
-        //     bottomScreen: getScreenDimensions(bottomScreen),
-        // });
         
         alert(JSON.stringify(data, null, 2));
     };
