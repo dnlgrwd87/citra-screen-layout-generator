@@ -35,21 +35,20 @@ export default function ScreensContainer() {
         let screenDims = screen.current.getBoundingClientRect();
         let containerDims = container.current.getBoundingClientRect();
 
-        const left = screenDims.left - containerDims.left;
-        const right = left + screenDims.width;
         const top = screenDims.top - containerDims.top;
         const bottom = top + screenDims.height;
+        const left = screenDims.left - containerDims.left;
+        const right = left + screenDims.width;
 
-        return { left, right, bottom, top };
-
+        return { top, bottom, left, right };
     };
-    
+
     const onClick = () => {
         const data = {
             topScreen: getScreenPositionData(topScreen),
             bottomScreen: getScreenPositionData(bottomScreen),
         };
-        
+
         alert(JSON.stringify(data, null, 2));
     };
 
