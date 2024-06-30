@@ -1,6 +1,6 @@
 'use client';
 
-import { Box } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { RefObject, useEffect, useRef, useState } from 'react';
 import Screen from './Screen';
 
@@ -17,31 +17,30 @@ export default function ScreensContainer() {
 
     const [dimensions, setDimensions] = useState<Dimensions>({
         // steam deck, need a set of defaults
-        width: 1200,
+        width: 1280,
         height: 800,
     });
 
-    const topScreen = useRef<HTMLDivElement>(null);
-    const bottomScreen = useRef<HTMLDivElement>(null);
-    const container = useRef<HTMLDivElement>(null);
+    const topScreen = useRef<HTMLImageElement>(null);
+    const bottomScreen = useRef<HTMLImageElement>(null);
+    const screensContainer = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         setMounted(true);
     }, []);
 
-    const containerStyle = {
+    const containerDimensions = {
         width: dimensions.width,
-        aspectRatio: '16 / 9', // steam deck is 16 / 10
-        background: 'black',
+        aspectRatio: '16 / 10', // steam deck is 16 / 10
     };
 
     const getScreenPositionData = (screen: RefObject<HTMLDivElement>) => {
-        if (!screen.current || !container.current) {
+        if (!screen.current || !screensContainer.current) {
             return;
         }
 
         let screenDims = screen.current.getBoundingClientRect();
-        let containerDims = container.current.getBoundingClientRect();
+        let containerDims = screensContainer.current.getBoundingClientRect();
 
         const top = screenDims.top - containerDims.top;
         const bottom = top + screenDims.height;
@@ -66,8 +65,10 @@ export default function ScreensContainer() {
 
     return (
         <div className="flex flex-col gap-4">
-            <button onClick={onClick}>Get config values</button>
-            <Box ref={container} sx={containerStyle}>
+            <Button variant="contained" className="self-end" onClick={onClick}>
+                Get config values
+            </Button>
+            <Box ref={screensContainer} sx={containerDimensions} className="bg-black">
                 {/* Top Screen - 5:3 aspect ratio */}
                 <Screen
                     screenRef={topScreen}
