@@ -1,8 +1,8 @@
 'use client';
 
 import { RefObject, useRef, useState } from 'react';
-import { Rnd } from 'react-rnd';
-import styles from './screens-container.module.scss';
+import Screen from './Screen';
+import { Box } from '@mui/material';
 
 export type Dimensions = {
     width: number;
@@ -23,7 +23,6 @@ export default function ScreensContainer() {
     const style = {
         width: dimensions.width,
         aspectRatio: '16 / 9', // steam deck is 16 / 10
-        // aspectRatio: '16 / 10',
         border: '1px solid black',
     };
 
@@ -55,35 +54,29 @@ export default function ScreensContainer() {
     return (
         <div className="flex flex-col gap-4">
             <button onClick={onClick}>Click me</button>
-            <div ref={container} className={styles['screens-container']} style={style}>
+            <Box ref={container} sx={style}>
                 {/* Top Screen - 5:3 aspect ratio */}
-                <Rnd
-                    bounds="parent"
-                    lockAspectRatio
+                <Screen
+                    screenRef={topScreen}
                     default={{
                         x: 0,
                         y: 0,
                         width: 500,
                         height: 300,
                     }}
-                >
-                    <div ref={topScreen} className={styles.screen}></div>
-                </Rnd>
+                />
 
                 {/* Bottom Screen - 4:3 aspect ratio */}
-                <Rnd
-                    bounds="parent"
-                    lockAspectRatio
+                <Screen
+                    screenRef={bottomScreen}
                     default={{
                         x: 0,
                         y: 0,
                         width: 200,
                         height: 150,
                     }}
-                >
-                    <div ref={bottomScreen} className={styles.screen}></div>
-                </Rnd>
-            </div>
+                />
+            </Box>
         </div>
     );
 }
