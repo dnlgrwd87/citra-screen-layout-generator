@@ -4,20 +4,23 @@ import { Rnd, Props as RndProps } from 'react-rnd';
 
 interface Props extends RndProps {
     screenRef: RefObject<HTMLDivElement>;
+    imageSrc: string;
 }
 
 export default function Screen(props: Props) {
-    const { screenRef, ...rndProps } = props;
+    const { screenRef, imageSrc, ...rndProps } = props;
 
     return (
         <Rnd lockAspectRatio bounds="parent" {...rndProps}>
             <Box
+                component="img"
                 ref={screenRef}
+                src={imageSrc}
                 sx={{
                     width: '100%',
                     height: '100%',
-                    border: '1px solid gray',
-                    overflow: 'hidden',
+                    // This prevent Rnd from doing some weird things when dragging an image
+                    pointerEvents: 'none',
                 }}
             />
         </Rnd>

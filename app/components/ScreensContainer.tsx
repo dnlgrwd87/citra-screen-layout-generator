@@ -1,8 +1,8 @@
 'use client';
 
+import { Box } from '@mui/material';
 import { RefObject, useEffect, useRef, useState } from 'react';
 import Screen from './Screen';
-import { Box } from '@mui/material';
 
 export type Dimensions = {
     width: number;
@@ -32,7 +32,7 @@ export default function ScreensContainer() {
     const containerStyle = {
         width: dimensions.width,
         aspectRatio: '16 / 9', // steam deck is 16 / 10
-        border: '1px solid black',
+        background: 'black',
     };
 
     const getScreenPositionData = (screen: RefObject<HTMLDivElement>) => {
@@ -66,11 +66,12 @@ export default function ScreensContainer() {
 
     return (
         <div className="flex flex-col gap-4">
-            <button onClick={onClick}>Click me</button>
+            <button onClick={onClick}>Get config values</button>
             <Box ref={container} sx={containerStyle}>
                 {/* Top Screen - 5:3 aspect ratio */}
                 <Screen
                     screenRef={topScreen}
+                    imageSrc="/images/top-screen-pkmn.png"
                     default={{
                         x: 0,
                         y: 0,
@@ -82,6 +83,7 @@ export default function ScreensContainer() {
                 {/* Bottom Screen - 4:3 aspect ratio */}
                 <Screen
                     screenRef={bottomScreen}
+                    imageSrc="/images/top-screen-pkmn.png"
                     default={{
                         x: 0,
                         y: 0,
