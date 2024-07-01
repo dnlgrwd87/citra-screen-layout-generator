@@ -22,14 +22,16 @@ export default function ScreensContainer() {
             return;
         }
 
-        let {width, height} = screenEl.getBoundingClientRect();
+        let { width, height } = screenEl.getBoundingClientRect();
         // todo: type this
-        const {x, y} = screen.current?.draggable.state;
+        const { x, y } = screen.current?.draggable.state;
 
         const top = x;
         const bottom = y + height;
         const left = y;
         const right = x + width;
+
+        console.log({ x, y, width, height });
 
         return {
             top: top * resolution.displayScale,
@@ -100,29 +102,15 @@ export default function ScreensContainer() {
                 <Screen
                     screenRef={topScreen}
                     imageSrc="/images/top-screen-pkmn.png"
-                    default={
-                        resolution.defaultScreenData?.top || {
-                            x: 0,
-                            y: 0,
-                            width: 700,
-                            height: 420,
-                        }
-                    }
+                    default={resolution.defaultScreenData.top}
                 />
 
                 {/* Bottom Screen - 4:3 aspect ratio */}
-                {/* <Screen
+                <Screen
                     screenRef={bottomScreen}
                     imageSrc="/images/bottom-screen-pkmn.png"
-                    default={
-                        resolution.defaultScreenData?.bottom || {
-                            x: 0,
-                            y: 0,
-                            width: 200,
-                            height: 150,
-                        }
-                    }
-                /> */}
+                    default={resolution.defaultScreenData.bottom}
+                />
             </Box>
         </div>
     );
