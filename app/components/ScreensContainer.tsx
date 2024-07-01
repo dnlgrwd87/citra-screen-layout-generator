@@ -15,14 +15,6 @@ export type Dimensions = {
 export default function ScreensContainer() {
     const [resolution, setResolution] = useState(resolutions._1920x1080);
 
-    // The two screen components need the container to be mounted before they are so they can set the
-    // bounds correctly. If we don't wait, the two screens see the window as their parent at first, then
-    // jump into the bounds of the container when rendered.
-    const [mounted, setMounted] = useState(false);
-    useEffect(() => {
-        setMounted(true);
-    }, []);
-
     const topScreen = useRef<Rnd>(null);
     const bottomScreen = useRef<Rnd>(null);
     const screensContainer = useRef<HTMLDivElement>(null);
@@ -88,10 +80,6 @@ export default function ScreensContainer() {
         }
     };
 
-    if (!mounted) {
-        return null;
-    }
-
     return (
         <div className="flex flex-col gap-4">
             <div className="flex self-end items-center gap-5">
@@ -100,7 +88,10 @@ export default function ScreensContainer() {
                 </div>
                 <Button
                     variant="contained"
-                    className="shrink-0 h-full normal-case"
+                    className="shrink-0 h-full"
+                    sx={{
+                        textTransform: 'none'
+                    }}
                     onClick={onClick}
                 >
                     Get config values
