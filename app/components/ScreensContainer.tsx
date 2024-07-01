@@ -81,14 +81,7 @@ export default function ScreensContainer() {
                 <div className="w-64">
                     <ResolutionSelector onChange={onResolutionChange} />
                 </div>
-                <Button
-                    variant="contained"
-                    className="shrink-0 h-full"
-                    sx={{
-                        textTransform: 'none',
-                    }}
-                    onClick={onClick}
-                >
+                <Button className="shrink-0 h-full" onClick={onClick}>
                     Get config values
                 </Button>
             </div>

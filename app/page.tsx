@@ -1,6 +1,4 @@
-import Screen from './components/Screen';
 import ScreensContainer from './components/ScreensContainer';
-import './main.css';
 
 export default function Home() {
     return (

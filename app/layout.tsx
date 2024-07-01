@@ -1,8 +1,7 @@
+import { ThemeProvider } from '@mui/material';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import './globals.css';
-
-const inter = Inter({ subsets: ['latin'] });
+import theme from './theme';
 
 export const metadata: Metadata = {
     title: 'Citra Screen Layout Generator',
@@ -16,7 +15,9 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className={inter.className}>{children}</body>
+            <ThemeProvider theme={theme}>
+                <body>{children}</body>
+            </ThemeProvider>
         </html>
     );
 }
