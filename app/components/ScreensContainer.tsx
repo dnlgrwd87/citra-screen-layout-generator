@@ -5,7 +5,6 @@ import { RefObject, useRef, useState } from 'react';
 import { Rnd } from 'react-rnd';
 import { resolutions } from '../constants';
 import { Resolution } from '../types';
-import PositionToolbar from './PositionToolbar';
 import ResolutionSelector from './ResolutionSelector';
 import Screen from './Screen';
 
@@ -75,12 +74,7 @@ export default function ScreensContainer() {
 
     return (
         <div className="flex flex-col gap-4">
-            <div className="flex justify-between">
-                <PositionToolbar
-                    topScreen={topScreen}
-                    bottomScreen={bottomScreen}
-                    resolution={resolution}
-                />
+            <div className="flex justify-end">
                 <div className="flex items-center gap-5">
                     <div className="w-64">
                         <ResolutionSelector onChange={onResolutionChange} />
@@ -102,6 +96,7 @@ export default function ScreensContainer() {
                 <Screen
                     screenRef={topScreen}
                     imageSrc="/images/top-screen-pkmn.png"
+                    resolution={resolution}
                     default={resolution.defaultScreenData.top}
                 />
 
@@ -109,6 +104,7 @@ export default function ScreensContainer() {
                 <Screen
                     screenRef={bottomScreen}
                     imageSrc="/images/bottom-screen-pkmn.png"
+                    resolution={resolution}
                     default={resolution.defaultScreenData.bottom}
                 />
             </Box>
