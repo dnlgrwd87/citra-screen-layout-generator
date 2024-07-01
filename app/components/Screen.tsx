@@ -1,4 +1,5 @@
 import { Menu, MenuItem } from '@mui/material';
+import Image from 'next/image';
 import React, { RefObject } from 'react';
 import { Rnd, Props as RndProps } from 'react-rnd';
 import { Resolution } from '../types';
@@ -61,11 +62,18 @@ export default function Screen(props: Props) {
     return (
         <Rnd ref={screenRef} lockAspectRatio bounds="parent" {...rndProps}>
             <div
-                className="w-full h-full"
+                className="w-full h-full relative"
                 onContextMenu={handleContextMenu}
                 style={{ cursor: 'move' }}
             >
-                <img src={imageSrc} className="w-full h-full pointer-events-none" />
+                <Image
+                    fill
+                    priority
+                    sizes="100vh"
+                    src={imageSrc}
+                    className="w-full h-full pointer-events-none"
+                    alt="screen-image"
+                />
                 <Menu
                     open={contextMenu !== null}
                     onClose={onMenuClose}
