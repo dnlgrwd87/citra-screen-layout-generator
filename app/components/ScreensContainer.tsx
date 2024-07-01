@@ -80,7 +80,7 @@ export default function ScreensContainer() {
                         <ResolutionSelector onChange={onResolutionChange} />
                     </div>
                     <Button className="shrink-0 h-full" onClick={onClick}>
-                        Get config values
+                        Generate Config
                     </Button>
                 </div>
             </div>
