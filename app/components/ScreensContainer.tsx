@@ -22,13 +22,14 @@ export default function ScreensContainer() {
             return;
         }
 
-        let screenDims = screenEl.getBoundingClientRect();
-        let containerDims = screensContainer.current.getBoundingClientRect();
+        let {width, height} = screenEl.getBoundingClientRect();
+        // todo: type this
+        const {x, y} = screen.current?.draggable.state;
 
-        const top = screenDims.top - containerDims.top;
-        const bottom = top + screenDims.height;
-        const left = screenDims.left - containerDims.left;
-        const right = left + screenDims.width;
+        const top = x;
+        const bottom = y + height;
+        const left = y;
+        const right = x + width;
 
         return {
             top: top * resolution.displayScale,
@@ -110,7 +111,7 @@ export default function ScreensContainer() {
                 />
 
                 {/* Bottom Screen - 4:3 aspect ratio */}
-                <Screen
+                {/* <Screen
                     screenRef={bottomScreen}
                     imageSrc="/images/bottom-screen-pkmn.png"
                     default={
@@ -121,7 +122,7 @@ export default function ScreensContainer() {
                             height: 150,
                         }
                     }
-                />
+                /> */}
             </Box>
         </div>
     );
