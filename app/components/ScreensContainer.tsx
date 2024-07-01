@@ -3,7 +3,9 @@
 import { Box, Button } from '@mui/material';
 import { RefObject, useRef, useState } from 'react';
 import { Rnd } from 'react-rnd';
-import { Resolution, resolutions } from '../constants';
+import { resolutions } from '../constants';
+import { Resolution } from '../types';
+import PositionToolbar from './PositionToolbar';
 import ResolutionSelector from './ResolutionSelector';
 import Screen from './Screen';
 
@@ -13,12 +15,6 @@ export default function ScreensContainer() {
     const topScreen = useRef<Rnd>(null);
     const bottomScreen = useRef<Rnd>(null);
     const screensContainer = useRef<HTMLDivElement>(null);
-
-    const containerDimensions = {
-        // For display purposes, we want to half the size of the resolution
-        width: resolution.width / 2,
-        aspectRatio: resolution.aspectRatio,
-    };
 
     const getScreenPositionData = (screen: RefObject<Rnd>) => {
         const screenEl = screen.current?.getSelfElement();
@@ -34,12 +30,11 @@ export default function ScreensContainer() {
         const left = screenDims.left - containerDims.left;
         const right = left + screenDims.width;
 
-        // multiply all the values by 2 since we halved them earlier
         return {
-            top: top * 2,
-            bottom: bottom * 2,
-            left: left * 2,
-            right: right * 2,
+            top: top * resolution.displayScale,
+            bottom: bottom * resolution.displayScale,
+            left: left * resolution.displayScale,
+            right: right * resolution.displayScale,
         };
     };
 
@@ -77,15 +72,29 @@ export default function ScreensContainer() {
 
     return (
         <div className="flex flex-col gap-4">
-            <div className="flex self-end items-center gap-5">
-                <div className="w-64">
-                    <ResolutionSelector onChange={onResolutionChange} />
+            <div className="flex justify-between">
+                <PositionToolbar
+                    topScreen={topScreen}
+                    bottomScreen={bottomScreen}
+                    resolution={resolution}
+                />
+                <div className="flex items-center gap-5">
+                    <div className="w-64">
+                        <ResolutionSelector onChange={onResolutionChange} />
+                    </div>
+                    <Button className="shrink-0 h-full" onClick={onClick}>
+                        Get config values
+                    </Button>
                 </div>
-                <Button className="shrink-0 h-full" onClick={onClick}>
-                    Get config values
-                </Button>
             </div>
-            <Box ref={screensContainer} sx={containerDimensions} className="bg-black relative">
+            <Box
+                ref={screensContainer}
+                sx={{
+                    width: resolution.width / resolution.displayScale,
+                    aspectRatio: resolution.aspectRatio,
+                }}
+                className="bg-black relative"
+            >
                 {/* Top Screen - 5:3 aspect ratio */}
                 <Screen
                     screenRef={topScreen}

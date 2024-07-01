@@ -1,6 +1,7 @@
-import { FormControl, InputLabel, Select, MenuItem, Menu } from '@mui/material';
-import { Resolution, resolutions } from '../constants';
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { useState } from 'react';
+import { resolutions } from '../constants';
+import { Resolution } from '../types';
 
 interface Props {
     defaultResolution?: Resolution;

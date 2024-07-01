@@ -7,6 +7,7 @@ export const resolutions: { [key: string]: Resolution } = {
         height: 1080,
         displayName: '1920 x 1080',
         aspectRatio: '16 / 9',
+        displayScale: 2,
         defaultScreenData: {
             top: {
                 x: 0,
@@ -28,6 +29,7 @@ export const resolutions: { [key: string]: Resolution } = {
         height: 1440,
         displayName: '2560 x 1440',
         aspectRatio: '16 / 9',
+        displayScale: 2,
     },
     _1366x768: {
         id: '_1366x768',
@@ -35,6 +37,7 @@ export const resolutions: { [key: string]: Resolution } = {
         height: 768,
         displayName: '1366 x 768',
         aspectRatio: '16 / 9',
+        displayScale: 2,
     },
     _1280x800: {
         id: '_1280x800',
@@ -42,5 +45,6 @@ export const resolutions: { [key: string]: Resolution } = {
         height: 800,
         displayName: '1280 x 800 (Steam Deck)',
         aspectRatio: '16 / 10',
+        displayScale: 2,
     },
 };

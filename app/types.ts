@@ -24,4 +24,5 @@ export type Resolution = {
     displayName: string;
     aspectRatio: AspectRatio;
     defaultScreenData?: ScreenData;
+    displayScale: number;
 };
