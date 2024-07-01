@@ -26,8 +26,6 @@ export default function Screen(props: Props) {
             x: (resolution.width / resolution.displayScale - rect.width) / 2,
             y: screenRef.current?.draggable.state.y,
         });
-
-        setShowMenu(false);
     };
 
     const onCenterY = () => {
@@ -43,8 +41,6 @@ export default function Screen(props: Props) {
             x: screenRef.current?.draggable.state.x,
             y: (resolution.height / 2 - rect.height) / 2,
         });
-
-        setShowMenu(false);
     };
 
     return (
@@ -57,7 +53,11 @@ export default function Screen(props: Props) {
                 <img src={imageSrc} className="w-full h-full pointer-events-none" />
                 {showMenu && (
                     <div className="absolute top-3 right-3">
-                        <ScreenPositionButton onCenterX={onCenterX} onCenterY={onCenterY} />
+                        <ScreenPositionButton
+                            onCenterX={onCenterX}
+                            onCenterY={onCenterY}
+                            onMenuClose={() => setShowMenu(false)}
+                        />
                     </div>
                 )}
             </div>

@@ -1,3 +1,4 @@
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -6,6 +7,7 @@ import { useState } from 'react';
 interface Props {
     onCenterX: () => void;
     onCenterY: () => void;
+    onMenuClose: () => void;
 }
 
 export default function ScreenPositionButton(props: Props) {
@@ -16,6 +18,7 @@ export default function ScreenPositionButton(props: Props) {
 
     const onMenuClose = () => {
         setAnchorEl(null);
+        props.onMenuClose();
     };
 
     const onCenterX = () => {
@@ -43,7 +46,7 @@ export default function ScreenPositionButton(props: Props) {
                     lineHeight: 1,
                 }}
             >
-                ...
+                <MoreHorizIcon />
             </Button>
             <Menu
                 id={buttonId}
