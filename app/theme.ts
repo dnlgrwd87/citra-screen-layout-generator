@@ -20,6 +20,15 @@ const theme = createTheme({
                 },
             },
         },
+        MuiSelect: {
+            styleOverrides: {
+                root: {
+                    '& .MuiSelect-select': {
+                        padding: '10px'
+                    },
+                },
+            },
+        },
     },
 });
 
