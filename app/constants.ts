@@ -1,13 +1,4 @@
-export type AspectRatio = '16 / 9' | '16 / 10';
-
-export type Resolution = {
-    id: string;
-    width: number;
-    height: number;
-    displayName: string;
-    aspectRatio: AspectRatio;
-    defaultScreenData?: any;
-};
+import { Resolution } from './types';
 
 export const resolutions: { [key: string]: Resolution } = {
     _1920x1080: {

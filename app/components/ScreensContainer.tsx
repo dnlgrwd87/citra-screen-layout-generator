@@ -1,16 +1,11 @@
 'use client';
 
 import { Box, Button } from '@mui/material';
-import { RefObject, useEffect, useRef, useState } from 'react';
+import { RefObject, useRef, useState } from 'react';
 import { Rnd } from 'react-rnd';
 import { Resolution, resolutions } from '../constants';
 import ResolutionSelector from './ResolutionSelector';
 import Screen from './Screen';
-
-export type Dimensions = {
-    width: number;
-    height: number;
-};
 
 export default function ScreensContainer() {
     const [resolution, setResolution] = useState(resolutions._1920x1080);
@@ -90,7 +85,7 @@ export default function ScreensContainer() {
                     variant="contained"
                     className="shrink-0 h-full"
                     sx={{
-                        textTransform: 'none'
+                        textTransform: 'none',
                     }}
                     onClick={onClick}
                 >
