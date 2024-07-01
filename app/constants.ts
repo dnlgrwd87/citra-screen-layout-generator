@@ -16,6 +16,20 @@ export const resolutions: { [key: string]: Resolution } = {
         height: 1080,
         displayName: '1920 x 1080',
         aspectRatio: '16 / 9',
+        defaultScreenData: {
+            top: {
+                x: 0,
+                y: 60,
+                width: 700,
+                height: 420,
+            },
+            bottom: {
+                x: 702,
+                y: 173,
+                width: 258,
+                height: 194,
+            },
+        },
     },
     _2560x1440: {
         id: '_2560x1440',

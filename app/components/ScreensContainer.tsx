@@ -2,6 +2,7 @@
 
 import { Box, Button } from '@mui/material';
 import { RefObject, useEffect, useRef, useState } from 'react';
+import { Rnd } from 'react-rnd';
 import { Resolution, resolutions } from '../constants';
 import ResolutionSelector from './ResolutionSelector';
 import Screen from './Screen';
@@ -22,8 +23,8 @@ export default function ScreensContainer() {
         setMounted(true);
     }, []);
 
-    const topScreen = useRef<HTMLImageElement>(null);
-    const bottomScreen = useRef<HTMLImageElement>(null);
+    const topScreen = useRef<Rnd>(null);
+    const bottomScreen = useRef<Rnd>(null);
     const screensContainer = useRef<HTMLDivElement>(null);
 
     const containerDimensions = {
@@ -32,12 +33,13 @@ export default function ScreensContainer() {
         aspectRatio: resolution.aspectRatio,
     };
 
-    const getScreenPositionData = (screen: RefObject<HTMLDivElement>) => {
-        if (!screen.current || !screensContainer.current) {
+    const getScreenPositionData = (screen: RefObject<Rnd>) => {
+        const screenEl = screen.current?.getSelfElement();
+        if (!screenEl || !screensContainer.current) {
             return;
         }
 
-        let screenDims = screen.current.getBoundingClientRect();
+        let screenDims = screenEl.getBoundingClientRect();
         let containerDims = screensContainer.current.getBoundingClientRect();
 
         const top = screenDims.top - containerDims.top;
@@ -65,6 +67,25 @@ export default function ScreensContainer() {
 
     const onResolutionChange = (resolution: Resolution) => {
         setResolution(resolution);
+
+        if (resolution.defaultScreenData) {
+            topScreen.current?.updateSize({
+                width: resolution.defaultScreenData.top.width,
+                height: resolution.defaultScreenData.top.height,
+            });
+            topScreen.current?.updatePosition({
+                x: resolution.defaultScreenData.top.x,
+                y: resolution.defaultScreenData.top.y,
+            });
+            bottomScreen.current?.updateSize({
+                width: resolution.defaultScreenData.bottom.width,
+                height: resolution.defaultScreenData.bottom.height,
+            });
+            bottomScreen.current?.updatePosition({
+                x: resolution.defaultScreenData.bottom.x,
+                y: resolution.defaultScreenData.bottom.y,
+            });
+        }
     };
 
     if (!mounted) {
@@ -90,24 +111,28 @@ export default function ScreensContainer() {
                 <Screen
                     screenRef={topScreen}
                     imageSrc="/images/top-screen-pkmn.png"
-                    default={{
-                        x: 0,
-                        y: 0,
-                        width: 500,
-                        height: 300,
-                    }}
+                    default={
+                        resolution.defaultScreenData?.top || {
+                            x: 0,
+                            y: 0,
+                            width: 700,
+                            height: 420,
+                        }
+                    }
                 />
 
                 {/* Bottom Screen - 4:3 aspect ratio */}
                 <Screen
                     screenRef={bottomScreen}
                     imageSrc="/images/bottom-screen-pkmn.png"
-                    default={{
-                        x: 0,
-                        y: 0,
-                        width: 200,
-                        height: 150,
-                    }}
+                    default={
+                        resolution.defaultScreenData?.bottom || {
+                            x: 0,
+                            y: 0,
+                            width: 200,
+                            height: 150,
+                        }
+                    }
                 />
             </Box>
         </div>
