@@ -101,7 +101,7 @@ export default function ScreensContainer() {
                 {/* Bottom Screen - 4:3 aspect ratio */}
                 <Screen
                     screenRef={bottomScreen}
-                    imageSrc="/images/top-screen-pkmn.png"
+                    imageSrc="/images/bottom-screen-pkmn.png"
                     default={{
                         x: 0,
                         y: 0,
