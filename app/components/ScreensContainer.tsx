@@ -92,7 +92,6 @@ export default function ScreensContainer() {
                 }}
                 className="bg-black relative"
             >
-                {/* Top Screen - 5:3 aspect ratio */}
                 <Screen
                     screenRef={topScreen}
                     imageSrc="/images/top-screen-pkmn.png"
@@ -100,7 +99,6 @@ export default function ScreensContainer() {
                     default={resolution.defaultScreenData.top}
                 />
 
-                {/* Bottom Screen - 4:3 aspect ratio */}
                 <Screen
                     screenRef={bottomScreen}
                     imageSrc="/images/bottom-screen-pkmn.png"
