@@ -4,12 +4,14 @@ import { Box, Button } from '@mui/material';
 import { useRef, useState } from 'react';
 import { Rnd } from 'react-rnd';
 import ConfigValuesModal from './components/ConfigValuesModal';
+import GameSelector from './components/GameSelector';
 import ResolutionSelector from './components/ResolutionSelector';
 import Screen from './components/Screen';
-import { resolutions } from './constants';
-import { Resolution } from './types';
+import { games, resolutions } from './constants';
+import { Game, Resolution } from './types';
 
 export default function Home() {
+    const [game, setGame] = useState(games.zeldaOoT);
     const [resolution, setResolution] = useState(resolutions._1920x1080);
     const [showConfigValuesModal, setShowConfigValuesModal] = useState(false);
 
@@ -39,6 +41,10 @@ export default function Home() {
         }
     };
 
+    const onGameChange = (game: Game) => {
+        setGame(game);
+    };
+
     return (
         <main className="flex min-h-screen justify-center p-8">
             <ConfigValuesModal
@@ -51,6 +57,9 @@ export default function Home() {
                 <div className="flex items-center justify-end gap-5">
                     <div className="w-64">
                         <ResolutionSelector onChange={onResolutionChange} />
+                    </div>
+                    <div className="w-64">
+                        <GameSelector onChange={onGameChange} />
                     </div>
                     <Button
                         className="shrink-0 h-full"
@@ -68,14 +77,14 @@ export default function Home() {
                 >
                     <Screen
                         screenRef={topScreen}
-                        imageSrc="/images/top-screen-pkmn.png"
+                        imageSrc={game.topImgSrc}
                         resolution={resolution}
                         default={resolution.defaultScreenData.top}
                     />
 
                     <Screen
                         screenRef={bottomScreen}
-                        imageSrc="/images/bottom-screen-pkmn.png"
+                        imageSrc={game.bottomImgSrc}
                         resolution={resolution}
                         default={resolution.defaultScreenData.bottom}
                     />

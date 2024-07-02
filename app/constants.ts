@@ -1,4 +1,19 @@
-import { Resolution } from './types';
+import { Game, Resolution } from './types';
+
+export const games: { [key: string]: Game } = {
+    zeldaOoT: {
+        id: 'zeldaOoT',
+        name: 'Zelda: OoT',
+        topImgSrc: '/images/top-screen-oot.png',
+        bottomImgSrc: '/images/bottom-screen-oot.png',
+    },
+    pkmn: {
+        id: 'pkmn',
+        name: 'Pokémon',
+        topImgSrc: '/images/top-screen-pkmn.png',
+        bottomImgSrc: '/images/bottom-screen-pkmn.png',
+    },
+};
 
 export const resolutions: { [key: string]: Resolution } = {
     _1920x1080: {

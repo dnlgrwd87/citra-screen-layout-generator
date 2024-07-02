@@ -12,6 +12,12 @@ export type Position = {
     y: number;
 };
 
+export type Game = {
+    id: string;
+    name: string;
+    topImgSrc: string;
+    bottomImgSrc: string;
+};
 
 export type ScreenData = {
     [key in ScreenLocation]: Size & Position;
