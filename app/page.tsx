@@ -11,7 +11,7 @@ import { games, resolutions } from './constants';
 import { Game, Resolution } from './types';
 
 export default function Home() {
-    const [game, setGame] = useState(games.zeldaOoT);
+    const [game, setGame] = useState(games.zelda);
     const [resolution, setResolution] = useState(resolutions._1920x1080);
     const [showConfigValuesModal, setShowConfigValuesModal] = useState(false);
 

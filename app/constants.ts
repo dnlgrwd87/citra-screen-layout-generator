@@ -1,8 +1,8 @@
-import { Game, Resolution } from './types';
+import { Game, GameKey, Resolution, ResolutionKey } from './types';
 
-export const games: { [key: string]: Game } = {
-    zeldaOoT: {
-        id: 'zeldaOoT',
+export const games: { [key in GameKey]: Game } = {
+    zelda: {
+        id: 'zelda',
         name: 'Zelda: OoT',
         topImgSrc: '/images/top-screen-oot.png',
         bottomImgSrc: '/images/bottom-screen-oot.png',
@@ -15,7 +15,7 @@ export const games: { [key: string]: Game } = {
     },
 };
 
-export const resolutions: { [key: string]: Resolution } = {
+export const resolutions: { [key in ResolutionKey]: Resolution } = {
     _1280x800: {
         id: '_1280x800',
         width: 1280,
