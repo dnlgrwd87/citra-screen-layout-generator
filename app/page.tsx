@@ -54,12 +54,14 @@ export default function Home() {
                 onClose={() => setShowConfigValuesModal(false)}
             />
             <div className="flex flex-col gap-4">
-                <div className="flex items-center justify-end gap-5">
-                    <div className="w-64">
-                        <ResolutionSelector onChange={onResolutionChange} />
-                    </div>
-                    <div className="w-64">
-                        <GameSelector onChange={onGameChange} />
+                <div className="flex items-center justify-between gap-5">
+                    <div className="flex gap-4 flex-grow">
+                        <div className="max-w-60 flex-grow">
+                            <ResolutionSelector onChange={onResolutionChange} />
+                        </div>
+                        <div className="max-w-60 flex-grow">
+                            <GameSelector onChange={onGameChange} />
+                        </div>
                     </div>
                     <Button
                         className="shrink-0 h-full"
