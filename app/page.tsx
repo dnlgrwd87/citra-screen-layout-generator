@@ -15,7 +15,6 @@ export default function Home() {
 
     const topScreen = useRef<Rnd>(null);
     const bottomScreen = useRef<Rnd>(null);
-    const screensContainer = useRef<HTMLDivElement>(null);
 
     const onResolutionChange = (resolution: Resolution) => {
         setResolution(resolution);
@@ -63,12 +62,11 @@ export default function Home() {
                     </div>
                 </div>
                 <Box
-                    ref={screensContainer}
+                    className="bg-black relative"
                     sx={{
                         width: resolution.width / resolution.displayScale,
                         aspectRatio: resolution.aspectRatio,
                     }}
-                    className="bg-black relative"
                 >
                     <Screen
                         screenRef={topScreen}
