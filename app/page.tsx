@@ -41,25 +41,23 @@ export default function Home() {
 
     return (
         <main className="flex min-h-screen justify-center p-8">
+            <ConfigValuesModal
+                topScreen={topScreen}
+                bottomScreen={bottomScreen}
+                open={showConfigValuesModal}
+                onClose={() => setShowConfigValuesModal(false)}
+            />
             <div className="flex flex-col gap-4">
-                <ConfigValuesModal
-                    topScreen={topScreen}
-                    bottomScreen={bottomScreen}
-                    open={showConfigValuesModal}
-                    onClose={() => setShowConfigValuesModal(false)}
-                />
-                <div className="flex justify-end">
-                    <div className="flex items-center gap-5">
-                        <div className="w-64">
-                            <ResolutionSelector onChange={onResolutionChange} />
-                        </div>
-                        <Button
-                            className="shrink-0 h-full"
-                            onClick={() => setShowConfigValuesModal(true)}
-                        >
-                            Generate Config
-                        </Button>
+                <div className="flex items-center justify-end gap-5">
+                    <div className="w-64">
+                        <ResolutionSelector onChange={onResolutionChange} />
                     </div>
+                    <Button
+                        className="shrink-0 h-full"
+                        onClick={() => setShowConfigValuesModal(true)}
+                    >
+                        Generate Config
+                    </Button>
                 </div>
                 <Box
                     className="bg-black relative"
