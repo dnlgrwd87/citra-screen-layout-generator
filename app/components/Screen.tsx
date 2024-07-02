@@ -2,16 +2,14 @@ import { Menu, MenuItem } from '@mui/material';
 import Image from 'next/image';
 import React, { RefObject } from 'react';
 import { Rnd, Props as RndProps } from 'react-rnd';
-import { Resolution } from '../types';
 
 interface Props extends RndProps {
     screenRef: RefObject<Rnd>;
-    resolution: Resolution;
     imageSrc: string;
 }
 
 export default function Screen(props: Props) {
-    const { screenRef, imageSrc, resolution, ...rndProps } = props;
+    const { imageSrc, screenRef, ...rndProps } = props;
     const [contextMenu, setContextMenu] = React.useState<{
         mouseX: number;
         mouseY: number;
@@ -33,27 +31,25 @@ export default function Screen(props: Props) {
         setContextMenu(null);
     };
 
-    const getScreenData = () => {
-        return screenRef.current!.getSelfElement()!.getBoundingClientRect();
-    };
-
     const onCenterX = () => {
-        const rect = getScreenData();
+        const screen = screenRef.current!;
+        const screenEl = screen.getSelfElement()!;
 
-        screenRef.current!.updatePosition({
-            x: (resolution.width / resolution.displayScale - rect.width) / 2,
-            y: screenRef.current?.draggable.state.y,
+        screen.updatePosition({
+            x: (screen.getParentSize().width - screenEl.offsetWidth) / 2,
+            y: screen.getDraggablePosition().y,
         });
 
         onMenuClose();
     };
 
     const onCenterY = () => {
-        const rect = getScreenData();
+        const screen = screenRef.current!;
+        const screenEl = screen.getSelfElement()!;
 
-        screenRef.current!.updatePosition({
-            x: screenRef.current?.draggable.state.x,
-            y: (resolution.height / 2 - rect.height) / 2,
+        screen.updatePosition({
+            x: screen.getDraggablePosition().x,
+            y: (screen.getParentSize().height - screenEl.offsetHeight) / 2,
         });
 
         onMenuClose();
