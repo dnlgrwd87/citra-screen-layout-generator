@@ -1,13 +1,13 @@
 'use client';
 
 import { Box, Button } from '@mui/material';
-import { RefObject, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Rnd } from 'react-rnd';
 import { resolutions } from '../constants';
 import { Resolution } from '../types';
+import ConfigValuesModal from './ConfigValuesModal';
 import ResolutionSelector from './ResolutionSelector';
 import Screen from './Screen';
-import ConfigValues from './ConfigValues';
 
 export default function ScreensContainer() {
     const [resolution, setResolution] = useState(resolutions._1920x1080);
@@ -40,11 +40,9 @@ export default function ScreensContainer() {
         }
     };
 
-    const onGenerateConfigClick = () => {};
-
     return (
         <div className="flex flex-col gap-4">
-            <ConfigValues
+            <ConfigValuesModal
                 topScreen={topScreen}
                 bottomScreen={bottomScreen}
                 open={showConfigValuesModal}
