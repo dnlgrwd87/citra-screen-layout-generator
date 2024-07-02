@@ -16,6 +16,50 @@ export const games: { [key: string]: Game } = {
 };
 
 export const resolutions: { [key: string]: Resolution } = {
+    _1280x800: {
+        id: '_1280x800',
+        width: 1280,
+        height: 800,
+        displayName: '1280 x 800 (Steam Deck)',
+        aspectRatio: '16 / 10',
+        displayScale: 2,
+        defaultScreenData: {
+            top: {
+                x: 104.5,
+                y: 0,
+                width: 431,
+                height: 259,
+            },
+            bottom: {
+                x: 227.5,
+                y: 261,
+                width: 185,
+                height: 139,
+            },
+        },
+    },
+    _1366x768: {
+        id: '_1366x768',
+        width: 1366,
+        height: 768,
+        displayName: '1366 x 768',
+        aspectRatio: '16 / 9',
+        displayScale: 2,
+        defaultScreenData: {
+            top: {
+                x: 139,
+                y: 0,
+                width: 405,
+                height: 243,
+            },
+            bottom: {
+                x: 249,
+                y: 245,
+                width: 185,
+                height: 139,
+            },
+        },
+    },
     _1920x1080: {
         id: '_1920x1080',
         width: 1920,
@@ -57,51 +101,6 @@ export const resolutions: { [key: string]: Resolution } = {
                 y: 440,
                 width: 372,
                 height: 280,
-            },
-        },
-    },
-    _1366x768: {
-        id: '_1366x768',
-        width: 1366,
-        height: 768,
-        displayName: '1366 x 768',
-        aspectRatio: '16 / 9',
-        displayScale: 2,
-        defaultScreenData: {
-            top: {
-                x: 139,
-                y: 0,
-                width: 405,
-                height: 243,
-            },
-            bottom: {
-                x: 249,
-                y: 245,
-                width: 185,
-                height: 139,
-            },
-        },
-    },
-    // Steam Deck
-    _1280x800: {
-        id: '_1280x800',
-        width: 1280,
-        height: 800,
-        displayName: '1280 x 800 (Steam Deck)',
-        aspectRatio: '16 / 10',
-        displayScale: 2,
-        defaultScreenData: {
-            top: {
-                x: 104.5,
-                y: 0,
-                width: 431,
-                height: 259,
-            },
-            bottom: {
-                x: 227.5,
-                y: 261,
-                width: 185,
-                height: 139,
             },
         },
     },
