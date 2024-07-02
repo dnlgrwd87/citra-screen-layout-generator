@@ -1,7 +1,7 @@
 'use client';
 
 import ContentCopy from '@mui/icons-material/ContentCopy';
-import { Box, Button, Modal } from '@mui/material';
+import { Backdrop, Box, Button, Fade, Modal } from '@mui/material';
 import { RefObject } from 'react';
 import { Rnd } from 'react-rnd';
 
@@ -58,43 +58,55 @@ export default function ConfigValuesModal({ topScreen, bottomScreen, onClose, op
     };
 
     return (
-        <Modal open={open} onClose={onClose}>
-            <Box
-                sx={{
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: 400,
-                    bgcolor: 'background.paper',
-                    borderRadius: 1,
-                    boxShadow: 24,
-                    p: 4,
-                }}
-            >
-                <div className="flex justify-between items-center pb-4">
-                    <div>Paste into qt-config.ini</div>
-                    <Button
-                        onClick={onCopy}
-                        color="inherit"
-                        disableElevation
-                        sx={{
-                            minWidth: 0,
-                            padding: '5px 10px',
-                            background: 'white',
-                        }}
-                    >
-                        <ContentCopy />
-                    </Button>
-                </div>
-                <pre>
-                    <div className="text-sm l p-5 bg-gray-200 rounded-md shadow-md shadow-slate-300">
-                        {getConfigValues().map((val) => (
-                            <p key={val}>{val}</p>
-                        ))}
+        <Modal
+            open={open}
+            onClose={onClose}
+            closeAfterTransition
+            slots={{ backdrop: Backdrop }}
+            slotProps={{
+                backdrop: {
+                    timeout: 500,
+                },
+            }}
+        >
+            <Fade in={open}>
+                <Box
+                    sx={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        width: 400,
+                        bgcolor: 'background.paper',
+                        borderRadius: 1,
+                        boxShadow: 24,
+                        p: 4,
+                    }}
+                >
+                    <div className="flex justify-between items-center pb-4">
+                        <div>Paste into qt-config.ini</div>
+                        <Button
+                            onClick={onCopy}
+                            color="inherit"
+                            disableElevation
+                            sx={{
+                                minWidth: 0,
+                                padding: '5px 10px',
+                                background: 'white',
+                            }}
+                        >
+                            <ContentCopy />
+                        </Button>
                     </div>
-                </pre>
-            </Box>
+                    <pre>
+                        <div className="text-sm l p-5 bg-gray-200 rounded-md shadow-md shadow-slate-300">
+                            {getConfigValues().map((val) => (
+                                <p key={val}>{val}</p>
+                            ))}
+                        </div>
+                    </pre>
+                </Box>
+            </Fade>
         </Modal>
     );
 }
