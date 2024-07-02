@@ -26,7 +26,7 @@ export default function Navbar() {
                         Citra Layout Generator
                     </span>
                 </div>
-                <div className="flex gap-8">
+                <div className="flex gap-8 text-lg">
                     <Link href="/" className={getLinkClass('/')}>
                         Generator
                     </Link>
