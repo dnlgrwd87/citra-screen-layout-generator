@@ -2,7 +2,7 @@
 
 import { Box, Button } from '@mui/material';
 import { useState } from 'react';
-import { InitialState } from '../types';
+import { InitialState, ScreenData } from '../types';
 import { getShareUrl } from '../utils/screenUtils';
 import ConfigValues from './ConvigValues';
 import GameSelector from './GameSelector';

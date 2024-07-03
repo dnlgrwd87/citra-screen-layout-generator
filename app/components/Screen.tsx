@@ -31,6 +31,8 @@ export default function Screen(props: Props) {
 
         rnd.current.updatePosition({ x, y });
         rnd.current.updateSize({ width, height });
+        
+        props.onChange({ x, y, width, height });
     }, [props.resolution, props.location]);
 
     const handleContextMenu = (event: React.MouseEvent) => {
