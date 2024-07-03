@@ -11,7 +11,7 @@ interface Props extends RndProps {
     onChange: (data: Partial<ScreenData>) => void;
 }
 
-export default function Screen({ props }: Props) {
+export default function Screen(props: Props) {
     const [contextMenu, setContextMenu] = React.useState<{
         mouseX: number;
         mouseY: number;

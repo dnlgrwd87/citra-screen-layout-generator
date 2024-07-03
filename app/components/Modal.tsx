@@ -1,9 +1,9 @@
 'use client';
 
-import { Backdrop, Box, Fade, ModalProps, Modal as MuiModal, SxProps, Theme } from '@mui/material';
+import { Backdrop, Box, Fade, ModalProps, Modal as MuiModal, SxProps } from '@mui/material';
 
 interface Props extends ModalProps {
-    contentStyles?: SxProps<Theme>;
+    contentStyles?: SxProps;
 }
 
 export default function Modal(props: Props) {
