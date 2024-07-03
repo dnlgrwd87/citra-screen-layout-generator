@@ -6,6 +6,8 @@ export type GameKey = 'zelda' | 'pkmn';
 
 export type ScreenLocation = 'top' | 'bottom';
 
+export type ScreenData = Size & Position;
+
 export type Size = {
     width: number;
     height: number;
@@ -23,16 +25,14 @@ export type Game = {
     bottomImgSrc: string;
 };
 
-export type ScreenData = {
-    [key in ScreenLocation]: Size & Position;
-};
-
 export type Resolution = {
     id: string;
     width: number;
     height: number;
     displayName: string;
     aspectRatio: AspectRatio;
-    defaultScreenData: ScreenData;
+    defaultScreenData: {
+        [key in ScreenLocation]: ScreenData;
+    };
     displayScale: number;
 };

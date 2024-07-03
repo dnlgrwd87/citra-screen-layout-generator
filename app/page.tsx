@@ -8,7 +8,8 @@ import GameSelector from './components/GameSelector';
 import ResolutionSelector from './components/ResolutionSelector';
 import Screen from './components/Screen';
 import { games, resolutions } from './constants';
-import { Game, Resolution } from './types';
+import { Resolution } from './types';
+import { updateScreenSizeAndPosition } from './utils/screenUtils';
 
 export default function Home() {
     const [game, setGame] = useState(games.zelda);
@@ -21,28 +22,8 @@ export default function Home() {
     const onResolutionChange = (resolution: Resolution) => {
         setResolution(resolution);
 
-        if (resolution.defaultScreenData) {
-            topScreen.current!.updateSize({
-                width: resolution.defaultScreenData.top.width,
-                height: resolution.defaultScreenData.top.height,
-            });
-            topScreen.current!.updatePosition({
-                x: resolution.defaultScreenData.top.x,
-                y: resolution.defaultScreenData.top.y,
-            });
-            bottomScreen.current!.updateSize({
-                width: resolution.defaultScreenData.bottom.width,
-                height: resolution.defaultScreenData.bottom.height,
-            });
-            bottomScreen.current!.updatePosition({
-                x: resolution.defaultScreenData.bottom.x,
-                y: resolution.defaultScreenData.bottom.y,
-            });
-        }
-    };
-
-    const onGameChange = (game: Game) => {
-        setGame(game);
+        updateScreenSizeAndPosition(topScreen.current!, resolution.defaultScreenData.top);
+        updateScreenSizeAndPosition(bottomScreen.current!, resolution.defaultScreenData.bottom);
     };
 
     return (
@@ -59,7 +40,7 @@ export default function Home() {
                         <ResolutionSelector onChange={onResolutionChange} />
                     </div>
                     <div className="min-w-60">
-                        <GameSelector onChange={onGameChange} />
+                        <GameSelector onChange={setGame} />
                     </div>
                     <Button
                         className="shrink-0 h-full"
