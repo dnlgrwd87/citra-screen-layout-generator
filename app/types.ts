@@ -36,3 +36,16 @@ export type Resolution = {
     };
     displayScale: number;
 };
+
+export type StateFromParams = {
+    resolutionId: ResolutionKey;
+    gameId: GameKey;
+    topX: number;
+    topY: number;
+    topWidth: number;
+    topHeight: number;
+    bottomX: number;
+    bottomY: number;
+    bottomWidth: number;
+    bottomHeight: number;
+};

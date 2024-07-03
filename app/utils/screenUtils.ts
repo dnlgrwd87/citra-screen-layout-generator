@@ -18,8 +18,8 @@ export const getShareUrl = (
     const bottomPos = bottomScreen.getDraggablePosition();
 
     const params = {
-        resolution: resolution.id,
-        game: game.id,
+        resolutionId: resolution.id,
+        gameId: game.id,
         topX: topPos.x.toString(),
         topY: topPos.y.toString(),
         topWidth: tsEl.offsetWidth.toString(),
