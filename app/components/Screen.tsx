@@ -62,6 +62,11 @@ export default function Screen(props: Props) {
                 onContextMenu={handleContextMenu}
                 style={{ cursor: 'move' }}
             >
+                <img
+                    src={imageSrc}
+                    className="w-full h-full pointer-events-none"
+                    alt="screen-image"
+                />
                 <Image
                     fill
                     priority
