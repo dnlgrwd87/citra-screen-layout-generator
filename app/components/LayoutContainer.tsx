@@ -1,69 +1,28 @@
 'use client';
 
 import { Box, Button } from '@mui/material';
-import { useEffect, useRef, useState } from 'react';
-import { Rnd } from 'react-rnd';
-import { games, resolutions } from '../constants';
-import { Game, GameKey, Resolution, ResolutionKey, ScreenData, StateFromParams } from '../types';
-import { getShareUrl, updateScreenSizeAndPosition } from '../utils/screenUtils';
-import ConfigValuesModal from './ConfigValuesModal';
+import { useState } from 'react';
+import { InitialState } from '../types';
 import GameSelector from './GameSelector';
 import ResolutionSelector from './ResolutionSelector';
 import Screen from './Screen';
+import ConfigValuesModal from './ConfigValuesModal';
+import { getShareUrl } from '../utils/screenUtils';
 
 interface Props {
-    initialState?: StateFromParams;
+    initialState: InitialState;
 }
 
 export default function LayoutContainer({ initialState }: Props) {
-    const gameId = (initialState?.gameId || games.zelda.id) as GameKey;
-    const resolutionId = (initialState?.resolutionId || resolutions._1920x1080.id) as ResolutionKey;
-
-    const [game, setGame] = useState<Game>(games[gameId]);
-    const [resolution, setResolution] = useState<Resolution>(resolutions[resolutionId]);
+    const [game, setGame] = useState(initialState.game);
+    const [resolution, setResolution] = useState(initialState.resolution);
     const [showConfigValuesModal, setShowConfigValuesModal] = useState(false);
 
-    const [screensInitiated, setScreensInitiated] = useState(!initialState);
-
-    const topScreen = useRef<Rnd>(null);
-    const bottomScreen = useRef<Rnd>(null);
-
-    const onResolutionChange = (resolution: Resolution) => {
-        setResolution(resolution);
-
-        updateScreenSizeAndPosition(topScreen.current!, resolution.defaultScreenData.top);
-        updateScreenSizeAndPosition(bottomScreen.current!, resolution.defaultScreenData.bottom);
-    };
-
-    useEffect(() => {
-        setScreensInitiated(true);
-
-        if (!initialState) {
-            return;
-        }
-
-        const topScreenData: ScreenData = {
-            x: initialState.topX,
-            y: initialState.topY,
-            width: initialState.topWidth,
-            height: initialState.topHeight,
-        };
-
-        const bottomScreenData: ScreenData = {
-            x: initialState.bottomX,
-            y: initialState.bottomY,
-            width: initialState.bottomWidth,
-            height: initialState.bottomHeight,
-        };
-
-        updateScreenSizeAndPosition(topScreen.current!, topScreenData);
-        updateScreenSizeAndPosition(bottomScreen.current!, bottomScreenData);
-    }, [initialState]);
-
-    const displayClass = !screensInitiated ? 'hidden' : 'flex';
+    const [topScreen, setTopScreen] = useState(initialState.defaultTop);
+    const [bottomScreen, setBottomScreen] = useState(initialState.defaultBottom);
 
     return (
-        <div className={displayClass}>
+        <div className="flex">
             <ConfigValuesModal
                 topScreen={topScreen}
                 bottomScreen={bottomScreen}
@@ -73,12 +32,7 @@ export default function LayoutContainer({ initialState }: Props) {
             <div className="flex flex-col items-center gap-4">
                 <button
                     onClick={() => {
-                        const url = getShareUrl(
-                            topScreen.current!,
-                            bottomScreen.current!,
-                            resolution,
-                            game
-                        );
+                        const url = getShareUrl(topScreen, bottomScreen, resolution, game);
 
                         console.log(url);
                     }}
@@ -89,7 +43,7 @@ export default function LayoutContainer({ initialState }: Props) {
                     <div className="min-w-60">
                         <ResolutionSelector
                             defaultResolution={resolution}
-                            onChange={onResolutionChange}
+                            onChange={setResolution}
                         />
                     </div>
                     <div className="min-w-60">
@@ -110,17 +64,29 @@ export default function LayoutContainer({ initialState }: Props) {
                     }}
                 >
                     <Screen
-                        screenRef={topScreen}
                         imageSrc={game.topImgSrc}
                         resolution={resolution}
-                        default={resolution.defaultScreenData.top}
+                        default={initialState.defaultTop}
+                        location="top"
+                        onChange={(changes) => {
+                            setTopScreen((topScreen) => ({
+                                ...topScreen,
+                                ...changes,
+                            }));
+                        }}
                     />
 
                     <Screen
-                        screenRef={bottomScreen}
                         imageSrc={game.bottomImgSrc}
                         resolution={resolution}
-                        default={resolution.defaultScreenData.bottom}
+                        default={initialState.defaultBottom}
+                        location="bottom"
+                        onChange={(changes) => {
+                            setBottomScreen((bottomScreen) => ({
+                                ...bottomScreen,
+                                ...changes,
+                            }));
+                        }}
                     />
                 </Box>
             </div>

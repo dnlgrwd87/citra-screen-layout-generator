@@ -2,26 +2,17 @@
 
 import ContentCopy from '@mui/icons-material/ContentCopy';
 import { Backdrop, Box, Button, Fade, Modal } from '@mui/material';
-import { RefObject } from 'react';
-import { Rnd } from 'react-rnd';
+import { ScreenData } from '../types';
 
 interface Props {
-    topScreen: RefObject<Rnd>;
-    bottomScreen: RefObject<Rnd>;
+    topScreen: ScreenData;
+    bottomScreen: ScreenData;
     open: boolean;
     onClose: () => void;
 }
 
 export default function ConfigValuesModal({ topScreen, bottomScreen, onClose, open }: Props) {
-    if (!topScreen.current || !bottomScreen.current) {
-        return null;
-    }
-
-    const getScreenData = (screen: RefObject<Rnd>) => {
-        const { x, y } = screen.current!.getDraggablePosition();
-        const width = screen.current!.getSelfElement()?.offsetWidth!;
-        const height = screen.current!.getSelfElement()?.offsetHeight!;
-
+    const getScreenData = ({ x, y, width, height }: ScreenData) => {
         const top = y;
         const bottom = y + height;
         const left = x;

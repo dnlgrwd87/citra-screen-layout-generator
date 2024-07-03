@@ -7,27 +7,22 @@ export const updateScreenSizeAndPosition = (screen: Rnd, { width, height, x, y }
 };
 
 export const getShareUrl = (
-    topScreen: Rnd,
-    bottomScreen: Rnd,
+    topScreen: ScreenData,
+    bottomScreen: ScreenData,
     resolution: Resolution,
     game: Game
 ) => {
-    const tsEl = topScreen.getSelfElement()!;
-    const bsEl = bottomScreen.getSelfElement()!;
-    const topPos = topScreen.getDraggablePosition();
-    const bottomPos = bottomScreen.getDraggablePosition();
-
     const params = {
         resolutionId: resolution.id,
         gameId: game.id,
-        topX: topPos.x.toString(),
-        topY: topPos.y.toString(),
-        topWidth: tsEl.offsetWidth.toString(),
-        topHeight: tsEl.offsetHeight.toString(),
-        bottomX: bottomPos.x.toString(),
-        bottomY: bottomPos.y.toString(),
-        bottomWidth: bsEl.offsetWidth.toString(),
-        bottomHeight: bsEl.offsetHeight.toString(),
+        topX: topScreen.x.toString(),
+        topY: topScreen.y.toString(),
+        topWidth: topScreen.width.toString(),
+        topHeight: topScreen.height.toString(),
+        bottomX: bottomScreen.x.toString(),
+        bottomY: bottomScreen.y.toString(),
+        bottomWidth: bottomScreen.width.toString(),
+        bottomHeight: bottomScreen.height.toString(),
     };
 
     const queryString = new URLSearchParams(params).toString();

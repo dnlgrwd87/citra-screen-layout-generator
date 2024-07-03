@@ -19,14 +19,14 @@ export type Position = {
 };
 
 export type Game = {
-    id: string;
+    id: GameKey;
     name: string;
     topImgSrc: string;
     bottomImgSrc: string;
 };
 
 export type Resolution = {
-    id: string;
+    id: ResolutionKey;
     width: number;
     height: number;
     displayName: string;
@@ -37,7 +37,7 @@ export type Resolution = {
     displayScale: number;
 };
 
-export type StateFromParams = {
+export type ParsedParams = {
     resolutionId: ResolutionKey;
     gameId: GameKey;
     topX: number;
@@ -49,3 +49,10 @@ export type StateFromParams = {
     bottomWidth: number;
     bottomHeight: number;
 };
+
+export type InitialState = {
+    resolution: Resolution;
+    game: Game;
+    defaultTop: ScreenData;
+    defaultBottom: ScreenData;
+}
