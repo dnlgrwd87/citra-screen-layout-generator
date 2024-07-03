@@ -24,7 +24,13 @@ export default function LayoutContainer({ initialState }: Props) {
 
     return (
         <div className="flex">
-            <Modal open={showConfigValuesModal} onClose={() => setShowConfigValuesModal(false)}>
+            <Modal
+                open={showConfigValuesModal}
+                onClose={() => setShowConfigValuesModal(false)}
+                contentStyles={{
+                    paddingTop: '20px',
+                }}
+            >
                 <ConfigValues topScreen={topScreen} bottomScreen={bottomScreen} />
             </Modal>
             <div className="flex flex-col items-center gap-4">

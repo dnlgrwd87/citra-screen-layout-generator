@@ -1,19 +1,16 @@
 'use client';
 
-import { Backdrop, Box, Fade, Modal as MuiModal } from '@mui/material';
-import { ReactNode } from 'react';
+import { Backdrop, Box, Fade, ModalProps, Modal as MuiModal, SxProps, Theme } from '@mui/material';
 
-interface Props {
-    open: boolean;
-    onClose: () => void;
-    children: ReactNode;
+interface Props extends ModalProps {
+    contentStyles?: SxProps<Theme>;
 }
 
-export default function Modal({ children, open, onClose }: Props) {
+export default function Modal(props: Props) {
+    const { contentStyles, ...modalProps } = props;
+
     return (
         <MuiModal
-            open={open}
-            onClose={onClose}
             closeAfterTransition
             slots={{ backdrop: Backdrop }}
             slotProps={{
@@ -21,8 +18,9 @@ export default function Modal({ children, open, onClose }: Props) {
                     timeout: 500,
                 },
             }}
+            {...modalProps}
         >
-            <Fade in={open}>
+            <Fade in={props.open}>
                 <Box
                     sx={{
                         position: 'absolute',
@@ -33,10 +31,11 @@ export default function Modal({ children, open, onClose }: Props) {
                         bgcolor: 'background.paper',
                         borderRadius: 1,
                         boxShadow: 24,
-                        p: 4,
+                        padding: 4,
+                        ...props.contentStyles,
                     }}
                 >
-                    {children}
+                    {props.children}
                 </Box>
             </Fade>
         </MuiModal>

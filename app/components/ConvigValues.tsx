@@ -1,8 +1,8 @@
 'use client';
 
 import ContentCopy from '@mui/icons-material/ContentCopy';
-import { Button } from '@mui/material';
 import { ScreenData } from '../types';
+import CopyButton from './CopyButton';
 
 interface Props {
     topScreen: ScreenData;
@@ -16,6 +16,7 @@ export default function ConfigValues({ topScreen, bottomScreen }: Props) {
         const left = x;
         const right = x + width;
 
+        // We multipy by 2 because all values have been halved for display purposes
         return {
             top: top * 2,
             bottom: bottom * 2,
@@ -41,27 +42,22 @@ export default function ConfigValues({ topScreen, bottomScreen }: Props) {
         ];
     };
 
-    // todo: implement
-    const onCopy = () => {
-        console.log('copied!');
-    };
+    const copyText = getConfigValues().join('\n');
 
     return (
-        <>
-            <div className="flex justify-between items-center pb-4">
+        <div className="flex flex-col gap-4">
+            <div className="flex justify-between items-center">
                 <div>Paste into qt-config.ini</div>
-                <Button
-                    onClick={onCopy}
+                <CopyButton
                     color="inherit"
                     disableElevation
+                    copyText={copyText}
                     sx={{
                         minWidth: 0,
-                        padding: '5px 10px',
+                        padding: '0 10px 5px 10px',
                         background: 'white',
                     }}
-                >
-                    <ContentCopy />
-                </Button>
+                />
             </div>
             <pre>
                 <div className="text-sm l p-5 bg-gray-200 rounded-md shadow-md shadow-slate-300">
@@ -70,6 +66,6 @@ export default function ConfigValues({ topScreen, bottomScreen }: Props) {
                     ))}
                 </div>
             </pre>
-        </>
+        </div>
     );
 }
