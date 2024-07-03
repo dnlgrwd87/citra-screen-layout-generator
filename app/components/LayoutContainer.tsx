@@ -3,11 +3,12 @@
 import { Box, Button } from '@mui/material';
 import { useState } from 'react';
 import { InitialState } from '../types';
+import { getShareUrl } from '../utils/screenUtils';
+import ConfigValues from './ConvigValues';
 import GameSelector from './GameSelector';
+import Modal from './Modal';
 import ResolutionSelector from './ResolutionSelector';
 import Screen from './Screen';
-import ConfigValuesModal from './ConfigValuesModal';
-import { getShareUrl } from '../utils/screenUtils';
 
 interface Props {
     initialState: InitialState;
@@ -23,12 +24,9 @@ export default function LayoutContainer({ initialState }: Props) {
 
     return (
         <div className="flex">
-            <ConfigValuesModal
-                topScreen={topScreen}
-                bottomScreen={bottomScreen}
-                open={showConfigValuesModal}
-                onClose={() => setShowConfigValuesModal(false)}
-            />
+            <Modal open={showConfigValuesModal} onClose={() => setShowConfigValuesModal(false)}>
+                <ConfigValues topScreen={topScreen} bottomScreen={bottomScreen} />
+            </Modal>
             <div className="flex flex-col items-center gap-4">
                 <button
                     onClick={() => {
