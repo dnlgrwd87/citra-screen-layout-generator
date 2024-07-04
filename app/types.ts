@@ -51,7 +51,7 @@ export type ParsedParams = {
 };
 
 export type InitialState = {
-    resolution: Resolution;
+    resolution?: Resolution;
     game: Game;
     topScreen: ScreenData;
     bottomScreen: ScreenData;

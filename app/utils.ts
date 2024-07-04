@@ -1,5 +1,6 @@
 import { Buffer } from 'buffer';
 import { Rnd } from 'react-rnd';
+import { resolutions } from './constants';
 import { Game, Resolution, ScreenData } from './types';
 
 export const updateScreenData = (screen: Rnd, { width, height, x, y }: ScreenData) => {
@@ -41,4 +42,23 @@ export const encodeParams = (data: string) => {
 
 export const decodeParams = (data: string): string => {
     return Buffer.from(data, 'base64').toString('ascii');
+};
+
+export const getInferedResolution = (): Resolution => {
+    const userScreenWidth = window.outerWidth;
+    const resList = Object.values(resolutions);
+    const sortedResolutions = [...resList.sort((a, b) => a.width - b.width)];
+    
+    let targetRes = sortedResolutions[0];
+    let diff = targetRes.width;
+
+    resList.forEach((res) => {
+        const currentDiff = Math.abs(res.width - userScreenWidth);
+        if (currentDiff < diff) {
+            diff = currentDiff;
+            targetRes = resolutions[res.id];
+        }
+    });
+
+    return targetRes;
 };

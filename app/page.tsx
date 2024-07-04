@@ -1,24 +1,17 @@
 import LayoutContainer from './components/LayoutContainer';
+import MountedComponent from './components/MountedComponent';
 import { games, resolutions } from './constants';
 import { StateFromParamsSchema } from './schemas';
 import { InitialState, ParsedParams } from './types';
 import { decodeParams } from './utils';
 
 export default function Home({ searchParams }: any) {
-    let initialState: InitialState | undefined;
+    let initialState: InitialState | null;
     let invalidParams = false;
 
-    const getInitialState = (): InitialState => {
+    const getInitialState = (): InitialState | null => {
         if (!Object.keys(searchParams).length) {
-            // todo: calculate this based on browser width
-            const defuaultResolution = resolutions._1920x1080;
-
-            return {
-                resolution: defuaultResolution,
-                game: games.zelda,
-                topScreen: defuaultResolution.defaultScreenData.top,
-                bottomScreen: defuaultResolution.defaultScreenData.bottom,
-            };
+            return null;
         }
 
         const decodedParams = JSON.parse(decodeParams(searchParams.id));
@@ -55,7 +48,9 @@ export default function Home({ searchParams }: any) {
                     <h1>Could not generate layout from url</h1>
                 </div>
             ) : (
-                <LayoutContainer initialState={initialState!} />
+                <MountedComponent>
+                    <LayoutContainer initialState={initialState!} />
+                </MountedComponent>
             )}
         </main>
     );

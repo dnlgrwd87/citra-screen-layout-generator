@@ -2,8 +2,9 @@
 
 import { Box } from '@mui/material';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { games } from '../constants';
 import { InitialState, Resolution, ScreenData } from '../types';
-import { getShareUrl } from '../utils';
+import { getInferedResolution, getShareUrl } from '../utils';
 import CopyButton from './CopyButton';
 import GameSelector from './GameSelector';
 import GenerateConfigButton from './GenerageConfigButton';
@@ -11,15 +12,23 @@ import ResolutionSelector from './ResolutionSelector';
 import Screen from './Screen';
 
 interface Props {
-    initialState: InitialState;
+    initialState?: InitialState;
 }
 
 export default function LayoutContainer({ initialState }: Props) {
-    const [topScreen, setTopScreen] = useState(initialState.topScreen);
-    const [bottomScreen, setBottomScreen] = useState(initialState.bottomScreen);
-    const [game, setGame] = useState(initialState.game);
-    const [resolution, setResolution] = useState(initialState.resolution);
-    const [shareUrl, setShareUrl] = useState('');
+    const [resolution, setResolution] = useState(
+        initialState?.resolution || getInferedResolution()
+    );
+    const [game, setGame] = useState(initialState?.game || games.zelda);
+    const [topScreen, setTopScreen] = useState(
+        initialState?.topScreen || resolution.defaultScreenData.top
+    );
+    const [bottomScreen, setBottomScreen] = useState(
+        initialState?.bottomScreen || resolution.defaultScreenData.bottom
+    );
+    const [shareUrl, setShareUrl] = useState(
+        getShareUrl(topScreen, bottomScreen, resolution, game)
+    );
 
     useEffect(() => {
         setShareUrl(getShareUrl(topScreen, bottomScreen, resolution, game));
