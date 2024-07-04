@@ -1,7 +1,7 @@
 'use client';
 
 import { Box, Button } from '@mui/material';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { InitialState, ScreenData } from '../types';
 import { getShareUrl } from '../utils/screenUtils';
 import ConfigValues from './ConvigValues';
@@ -20,6 +20,20 @@ export default function LayoutContainer({ initialState }: Props) {
     const [showConfigValuesModal, setShowConfigValuesModal] = useState(false);
     const [topScreen, setTopScreen] = useState(initialState.topScreen);
     const [bottomScreen, setBottomScreen] = useState(initialState.bottomScreen);
+
+    const onTopScreenChange = useCallback((changes: Partial<ScreenData>) => {
+        setTopScreen({
+            ...topScreen,
+            ...changes,
+        });
+    }, []);
+
+    const onBottomScreenChange = useCallback((changes: Partial<ScreenData>) => {
+        setBottomScreen({
+            ...bottomScreen,
+            ...changes,
+        });
+    }, []);
 
     return (
         <div className="flex">
@@ -71,12 +85,7 @@ export default function LayoutContainer({ initialState }: Props) {
                         resolution={resolution}
                         default={initialState.topScreen}
                         location="top"
-                        onChange={(changes) => {
-                            setTopScreen((topScreen) => ({
-                                ...topScreen,
-                                ...changes,
-                            }));
-                        }}
+                        onChange={onTopScreenChange}
                     />
 
                     <Screen
@@ -84,12 +93,7 @@ export default function LayoutContainer({ initialState }: Props) {
                         resolution={resolution}
                         default={initialState.bottomScreen}
                         location="bottom"
-                        onChange={(changes) => {
-                            setBottomScreen((bottomScreen) => ({
-                                ...bottomScreen,
-                                ...changes,
-                            }));
-                        }}
+                        onChange={onBottomScreenChange}
                     />
                 </Box>
             </div>

@@ -21,7 +21,7 @@ export default function Screen(props: Props) {
     const mounted = useRef(false);
 
     useEffect(() => {
-        if (!mounted.current) {
+        if (!rnd.current || !mounted.current) {
             mounted.current = true;
 
             return;
