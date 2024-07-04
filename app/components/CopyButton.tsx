@@ -55,7 +55,10 @@ export default function CopyButton(props: Props) {
                     <Alert
                         onClose={onCloseSnackBar}
                         severity={error ? 'error' : 'success'}
-                        sx={{ width: '100%' }}
+                        variant="filled"
+                        sx={{
+                            background: error ? '#d32f2f' : '#3ea643',
+                        }}
                     >
                         {snackbarMessage}
                     </Alert>
