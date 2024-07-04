@@ -1,8 +1,8 @@
 import LayoutContainer from './components/LayoutContainer';
 import { games, resolutions } from './constants';
+import { StateFromParamsSchema } from './schemas';
 import { InitialState, ParsedParams } from './types';
-import { decodeParams } from './utils/screenUtils';
-import { StateFromParamsSchema } from './utils/validators';
+import { decodeParams } from './utils';
 
 export default function Home({ searchParams }: any) {
     let initialState: InitialState | undefined;

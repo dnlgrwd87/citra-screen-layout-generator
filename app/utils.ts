@@ -1,6 +1,6 @@
 import { Buffer } from 'buffer';
 import { Rnd } from 'react-rnd';
-import { Game, Resolution, ScreenData } from '../types';
+import { Game, Resolution, ScreenData } from './types';
 
 export const updateScreenData = (screen: Rnd, { width, height, x, y }: ScreenData) => {
     screen.updatePosition({ x, y });

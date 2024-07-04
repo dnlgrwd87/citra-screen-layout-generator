@@ -3,7 +3,7 @@
 import { Box } from '@mui/material';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { InitialState, Resolution, ScreenData } from '../types';
-import { getShareUrl } from '../utils/screenUtils';
+import { getShareUrl } from '../utils';
 import CopyButton from './CopyButton';
 import GameSelector from './GameSelector';
 import GenerateConfigButton from './GenerageConfigButton';
