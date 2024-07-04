@@ -23,8 +23,9 @@ const theme = createTheme({
         MuiSelect: {
             styleOverrides: {
                 root: {
+                    backgroundColor: 'white',
                     '& .MuiSelect-select': {
-                        padding: '10px'
+                        padding: '10px',
                     },
                 },
             },

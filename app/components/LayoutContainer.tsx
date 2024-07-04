@@ -57,7 +57,7 @@ export default function LayoutContainer({ initialState }: Props) {
 
     return (
         <div className="flex">
-            <div className="flex flex-col items-center gap-4">
+            <div className="flex flex-col items-center gap-8">
                 <div className="flex items-center justify-center gap-5">
                     <div className="min-w-60">
                         <ResolutionSelector

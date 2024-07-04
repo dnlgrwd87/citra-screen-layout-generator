@@ -8,13 +8,13 @@ export default function Navbar() {
     const currentPath = usePathname();
 
     const getLinkClass = (path: string) => {
-        return path === currentPath ? 'text-blue-500' : 'text-white hover:text-blue-500';
+        return path === currentPath ? 'text-blue-500' : 'text-black hover:text-blue-500';
     };
 
     return (
-        <nav className="border-gray-200 bg-gray-900">
+        <nav className="border-gray-200 bg-white shadow-md">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-                <div className="flex items-center space-x-3 rtl:space-x-reverse">
+                <div className="flex items-center gap-4">
                     <Image
                         src="/images/citra-logo.png"
                         width={40}
@@ -22,7 +22,7 @@ export default function Navbar() {
                         alt="Citra Logo"
                         className="rounded-md"
                     />
-                    <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">
+                    <span className="self-center text-2xl font-semibold whitespace-nowrap">
                         Citra Layout Generator
                     </span>
                 </div>

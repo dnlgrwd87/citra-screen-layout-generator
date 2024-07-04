@@ -1,8 +1,8 @@
 import { ThemeProvider } from '@mui/material';
 import type { Metadata } from 'next';
+import Navbar from './components/Navbar';
 import './globals.css';
 import theme from './theme';
-import Navbar from './components/Navbar';
 
 export const metadata: Metadata = {
     title: 'Citra Screen Layout Generator',
@@ -17,7 +17,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <ThemeProvider theme={theme}>
-                <body>
+                <body className="bg-gray-100">
                     <Navbar />
                     {children}
                 </body>
