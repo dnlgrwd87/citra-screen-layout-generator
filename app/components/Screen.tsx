@@ -2,40 +2,28 @@ import { Menu, MenuItem } from '@mui/material';
 import Image from 'next/image';
 import React, { useEffect, useRef } from 'react';
 import { Rnd, RndDragCallback, Props as RndProps, RndResizeCallback } from 'react-rnd';
-import { Resolution, ScreenData, ScreenLocation } from '../types';
+import { ScreenData } from '../types';
 
 interface Props extends RndProps {
     imageSrc: string;
-    resolution: Resolution;
-    location: ScreenLocation;
+    screenData: ScreenData;
     onChange: (data: Partial<ScreenData>) => void;
 }
 
 export default function Screen(props: Props) {
-    const { resolution, location, onChange } = props;
-
     const [contextMenu, setContextMenu] = React.useState<{
         mouseX: number;
         mouseY: number;
     } | null>(null);
 
-    const rnd = useRef<Rnd>(null);
-    const mounted = useRef(false);
+    const screen = useRef<Rnd>(null);
 
     useEffect(() => {
-        if (!rnd.current || !mounted.current) {
-            mounted.current = true;
+        const { x, y, width, height } = props.screenData;
 
-            return;
-        }
-
-        const { x, y, width, height } = resolution.defaultScreenData[location];
-
-        rnd.current?.updatePosition({ x, y });
-        rnd.current?.updateSize({ width, height });
-
-        onChange({ x, y, width, height });
-    }, [resolution, location, onChange]);
+        screen.current?.updatePosition({ x, y });
+        screen.current?.updateSize({ width, height });
+    }, [props.screenData]);
 
     const handleContextMenu = (event: React.MouseEvent) => {
         event.preventDefault();
@@ -53,43 +41,35 @@ export default function Screen(props: Props) {
         setContextMenu(null);
     };
 
-    const onCenterX = () => {
-        const screen = rnd.current!;
-        const screenEl = screen.getSelfElement()!;
-
-        const position = {
-            x: (screen.getParentSize().width - screenEl.offsetWidth) / 2,
-            y: screen.getDraggablePosition().y,
-        };
-
-        screen.updatePosition(position);
-        props.onChange(position);
-
-        onMenuClose();
+    const centerX = (screen: Rnd) => {
+        props.onChange({
+            x: (screen.getParentSize().width - screen.getSelfElement()!.offsetWidth) / 2,
+        });
     };
 
-    const onCenterY = () => {
-        const screen = rnd.current!;
-        const screenEl = screen.getSelfElement()!;
+    const centerY = (screen: Rnd) => {
+        props.onChange({
+            y: (screen.getParentSize().height - screen.getSelfElement()!.offsetHeight) / 2,
+        });
+    };
 
-        const position = {
-            x: screen.getDraggablePosition().x,
-            y: (screen.getParentSize().height - screenEl.offsetHeight) / 2,
-        };
+    const onCenter = (centerFunc: (screen: Rnd) => void) => {
+        if (!screen.current) {
+            return;
+        }
 
-        screen.updatePosition(position);
-        props.onChange(position);
+        centerFunc(screen.current);
 
         onMenuClose();
     };
 
     const onResizeStop: RndResizeCallback = (_e, _direction, ref, _delta, _position) => {
-        if (!rnd.current) {
+        if (!screen.current) {
             return;
         }
 
         props.onChange({
-            ...rnd.current.getDraggablePosition(),
+            ...screen.current.getDraggablePosition(),
             width: ref.offsetWidth,
             height: ref.offsetHeight,
         });
@@ -101,12 +81,12 @@ export default function Screen(props: Props) {
 
     return (
         <Rnd
-            ref={rnd}
+            ref={screen}
             lockAspectRatio
             bounds="parent"
             onDragStop={onDragStop}
             onResizeStop={onResizeStop}
-            default={props.default}
+            default={props.screenData}
         >
             <div
                 className="w-full h-full relative"
@@ -139,8 +119,8 @@ export default function Screen(props: Props) {
                             : undefined
                     }
                 >
-                    <MenuItem onClick={onCenterX}>Center X-Axis</MenuItem>
-                    <MenuItem onClick={onCenterY}>Center Y-Axis</MenuItem>
+                    <MenuItem onClick={() => onCenter(centerX)}>Center X-Axis</MenuItem>
+                    <MenuItem onClick={() => onCenter(centerY)}>Center Y-Axis</MenuItem>
                 </Menu>
             </div>
         </Rnd>

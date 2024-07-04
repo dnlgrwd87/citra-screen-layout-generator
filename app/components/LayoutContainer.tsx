@@ -2,7 +2,7 @@
 
 import { Box } from '@mui/material';
 import { useCallback, useEffect, useState } from 'react';
-import { InitialState, ScreenData } from '../types';
+import { InitialState, Resolution, ScreenData } from '../types';
 import { getShareUrl } from '../utils/screenUtils';
 import ConfigValues from './ConvigValues';
 import CopyButton from './CopyButton';
@@ -42,6 +42,12 @@ export default function LayoutContainer({ initialState }: Props) {
         setShareUrl(getShareUrl(topScreen, bottomScreen, resolution, game));
     }, [topScreen, bottomScreen, resolution, game]);
 
+    const onResolutionChange = (resolution: Resolution) => {
+        setResolution(resolution);
+        onTopScreenChange(resolution.defaultScreenData.top);
+        onBottomScreenChange(resolution.defaultScreenData.bottom);
+    };
+
     return (
         <div className="flex">
             <Modal
@@ -59,7 +65,7 @@ export default function LayoutContainer({ initialState }: Props) {
                     <div className="min-w-60">
                         <ResolutionSelector
                             defaultResolution={resolution}
-                            onChange={setResolution}
+                            onChange={onResolutionChange}
                         />
                     </div>
                     <div className="min-w-60">
@@ -88,17 +94,13 @@ export default function LayoutContainer({ initialState }: Props) {
                 >
                     <Screen
                         imageSrc={game.topImgSrc}
-                        resolution={resolution}
-                        default={initialState.topScreen}
-                        location="top"
+                        screenData={topScreen}
                         onChange={onTopScreenChange}
                     />
 
                     <Screen
                         imageSrc={game.bottomImgSrc}
-                        resolution={resolution}
-                        default={initialState.bottomScreen}
-                        location="bottom"
+                        screenData={bottomScreen}
                         onChange={onBottomScreenChange}
                     />
                 </Box>

@@ -1,8 +1,8 @@
+import { Buffer } from 'buffer';
 import { Rnd } from 'react-rnd';
 import { Game, Resolution, ScreenData } from '../types';
-import { Buffer } from 'buffer';
 
-export const updateScreenSizeAndPosition = (screen: Rnd, { width, height, x, y }: ScreenData) => {
+export const updateScreenData = (screen: Rnd, { width, height, x, y }: ScreenData) => {
     screen.updatePosition({ x, y });
     screen.updateSize({ width, height });
 };
@@ -27,8 +27,8 @@ export const getShareUrl = (
     };
 
     const params = {
-        id: encodeParams(JSON.stringify(layoutState))
-    }
+        id: encodeParams(JSON.stringify(layoutState)),
+    };
 
     const queryString = new URLSearchParams(params).toString();
 
