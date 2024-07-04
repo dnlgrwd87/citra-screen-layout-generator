@@ -17,12 +17,12 @@ export default function ConfigValues({ topScreen, bottomScreen }: Props) {
         const left = x;
         const right = x + width;
 
-        // We divide by display scale to get actual values
+        // We divide by display scale to get actual values, since we multiplied by it initially
         return {
-            top: Math.round(top / DISPLAY_SCALE),
-            bottom: Math.round(bottom / DISPLAY_SCALE),
-            left: Math.round(left / DISPLAY_SCALE),
-            right: Math.round(right / DISPLAY_SCALE),
+            top: top / DISPLAY_SCALE,
+            bottom: bottom / DISPLAY_SCALE,
+            left: left / DISPLAY_SCALE,
+            right: right / DISPLAY_SCALE,
         };
     };
 
