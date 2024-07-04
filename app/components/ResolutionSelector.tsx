@@ -1,18 +1,18 @@
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { useState } from 'react';
-import { resolutions } from '../constants';
+import { RESOLUTIONS } from '../constants';
 import { Resolution, ResolutionKey } from '../types';
 
 interface Props {
-    defaultResolution?: Resolution;
+    defaultResolution: Resolution;
     onChange: (resolution: Resolution) => void;
 }
 
 export default function ResolutionSelector(props: Props) {
-    const [resolution, setResolution] = useState(props.defaultResolution || resolutions._1920x1080);
+    const [resolution, setResolution] = useState(props.defaultResolution);
 
     const onResolutionChange = (e: SelectChangeEvent) => {
-        const resolution = resolutions[e.target.value as ResolutionKey];
+        const resolution = RESOLUTIONS[e.target.value as ResolutionKey];
         
         setResolution(resolution);
         props.onChange(resolution);
@@ -28,7 +28,7 @@ export default function ResolutionSelector(props: Props) {
                 value={resolution.id}
                 onChange={onResolutionChange}
             >
-                {Object.values(resolutions).map((resolution) => (
+                {Object.values(RESOLUTIONS).map((resolution) => (
                     <MenuItem key={resolution.id} value={resolution.id}>
                         {resolution.displayName}
                     </MenuItem>

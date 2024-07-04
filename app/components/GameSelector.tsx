@@ -1,6 +1,6 @@
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { useState } from 'react';
-import { games } from '../constants';
+import { GAMES } from '../constants';
 import { Game, GameKey } from '../types';
 
 interface Props {
@@ -9,10 +9,10 @@ interface Props {
 }
 
 export default function GameSelector(props: Props) {
-    const [game, setGame] = useState(props.defaultGame || games.zelda);
+    const [game, setGame] = useState(props.defaultGame || GAMES.zelda);
 
     const onChange = (e: SelectChangeEvent) => {
-        const game = games[e.target.value as GameKey];
+        const game = GAMES[e.target.value as GameKey];
 
         setGame(game);
         props.onChange(game);
@@ -28,7 +28,7 @@ export default function GameSelector(props: Props) {
                 value={game.id}
                 onChange={onChange}
             >
-                {Object.values(games).map((game) => (
+                {Object.values(GAMES).map((game) => (
                     <MenuItem key={game.id} value={game.id}>
                         {game.name}
                     </MenuItem>

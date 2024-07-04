@@ -2,7 +2,7 @@
 
 import { Box } from '@mui/material';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { DISPLAY_SCALE, games } from '../constants';
+import { DISPLAY_SCALE, GAMES } from '../constants';
 import { InitialState, Resolution, ScreenData } from '../types';
 import { getDefaultScreenData, getInferedResolution, getShareUrl } from '../utils';
 import CopyButton from './CopyButton';
@@ -25,7 +25,7 @@ export default function LayoutContainer({ initialState }: Props) {
         : getDefaultScreenData(defaultResolution);
 
     const [resolution, setResolution] = useState(defaultResolution);
-    const [game, setGame] = useState(initialState?.game || games.zelda);
+    const [game, setGame] = useState(initialState?.game || GAMES.zelda);
     const [topScreen, setTopScreen] = useState(defaultScreenData.top);
     const [bottomScreen, setBottomScreen] = useState(defaultScreenData.bottom);
     const [shareUrl, setShareUrl] = useState(

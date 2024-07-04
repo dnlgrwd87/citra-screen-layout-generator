@@ -2,7 +2,7 @@ import { Game, GameKey, Resolution, ResolutionKey } from './types';
 
 export const DISPLAY_SCALE = 0.5;
 
-export const games: { [key in GameKey]: Game } = {
+export const GAMES: { [key in GameKey]: Game } = {
     zelda: {
         id: 'zelda',
         name: 'Zelda: OoT',
@@ -17,7 +17,7 @@ export const games: { [key in GameKey]: Game } = {
     },
 };
 
-export const screenRatios = {
+export const SCREEN_RATIOS = {
     top: {
         width: 5,
         height: 3,
@@ -28,7 +28,7 @@ export const screenRatios = {
     },
 };
 
-export const resolutions: { [key in ResolutionKey]: Resolution } = {
+export const RESOLUTIONS: { [key in ResolutionKey]: Resolution } = {
     _1280x800: {
         id: '_1280x800',
         width: 1280,
