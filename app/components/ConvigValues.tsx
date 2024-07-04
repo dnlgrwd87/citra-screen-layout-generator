@@ -18,10 +18,10 @@ export default function ConfigValues({ topScreen, bottomScreen }: Props) {
 
         // We multipy by 2 because all values have been halved for display purposes
         return {
-            top: top * 2,
-            bottom: bottom * 2,
-            left: left * 2,
-            right: right * 2,
+            top: Math.round(top * 2),
+            bottom: Math.round(bottom * 2),
+            left: Math.round(left * 2),
+            right: Math.round(right * 2),
         };
     };
 
