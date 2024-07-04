@@ -66,25 +66,55 @@ export const getInferedResolution = (): Resolution => {
 export const getDefaultScreenData = (
     resolution: Resolution
 ): { [key in ScreenLocation]: ScreenData } => {
+    return resolution.width >= resolution.height
+        ? getHorizontalLayout(resolution)
+        : getVeritcalLayout(resolution);
+};
+
+const getHorizontalLayout = (resolution: Resolution): { [key in ScreenLocation]: ScreenData } => {
     const scaledHeight = resolution.height * DISPLAY_SCALE;
     const scaledWidth = resolution.width * DISPLAY_SCALE;
-    const topHeight = scaledHeight * 0.6;
-    const bottomHeight = scaledHeight * 0.4;
 
-    const topWidth = (topHeight * screenRatios.top.width) / screenRatios.top.height;
-    const bottomWidth = (bottomHeight * screenRatios.bottom.width) / screenRatios.bottom.height;
+    // Each screen with take up half the height of the container
+    const screenHeight = scaledHeight / 2;
+
+    const topWidth = (screenHeight * screenRatios.top.width) / screenRatios.top.height;
+    const bottomWidth = (screenHeight * screenRatios.bottom.width) / screenRatios.bottom.height;
 
     return {
         top: {
-            x: (resolution.width / 2 - topWidth) / 2,
+            x: (scaledWidth - topWidth) / 2,
             y: 0,
             width: topWidth,
+            height: screenHeight,
+        },
+        bottom: {
+            x: (scaledWidth - bottomWidth) / 2,
+            y: scaledHeight - screenHeight,
+            width: bottomWidth,
+            height: screenHeight,
+        },
+    };
+};
+
+const getVeritcalLayout = (resolution: Resolution): { [key in ScreenLocation]: ScreenData } => {
+    const scaledWidth = resolution.width * DISPLAY_SCALE;
+    const scaledHeight = resolution.height * DISPLAY_SCALE;
+
+    const topHeight = (scaledWidth * screenRatios.top.height) / screenRatios.top.width;
+    const bottomHeight = (scaledWidth * screenRatios.bottom.height) / screenRatios.bottom.width;
+
+    return {
+        top: {
+            x: 0,
+            y: scaledHeight / 2 - topHeight,
+            width: scaledWidth,
             height: topHeight,
         },
         bottom: {
-            x: (resolution.width / 2 - bottomWidth) / 2,
-            y: scaledHeight - bottomHeight,
-            width: bottomWidth,
+            x: 0,
+            y: scaledHeight / 2,
+            width: scaledWidth,
             height: bottomHeight,
         },
     };

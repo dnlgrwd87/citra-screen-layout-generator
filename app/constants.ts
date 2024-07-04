@@ -52,5 +52,12 @@ export const resolutions: { [key in ResolutionKey]: Resolution } = {
         width: 2560,
         height: 1440,
         displayName: '2560 x 1440',
-    }
+    },
+    // mobile, vertical
+    _1080x2400: {
+        id: '_1080x2400',
+        width: 1080,
+        height: 2400,
+        displayName: '1080 x 2400',
+    },
 };

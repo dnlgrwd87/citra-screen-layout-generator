@@ -1,4 +1,4 @@
-export type ResolutionKey = '_1280x800' | '_1366x768' | '_1920x1080' | '_2560x1440';
+export type ResolutionKey = '_1280x800' | '_1366x768' | '_1920x1080' | '_2560x1440' | '_1080x2400';
 
 export type GameKey = 'zelda' | 'pkmn';
 
