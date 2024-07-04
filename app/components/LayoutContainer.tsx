@@ -4,9 +4,7 @@ import { Box } from '@mui/material';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { InitialState, Resolution, ScreenData } from '../types';
 import { getShareUrl } from '../utils/screenUtils';
-import ConfigValues from './ConvigValues';
 import CopyButton from './CopyButton';
-import Modal from './CustomModal';
 import GameSelector from './GameSelector';
 import GenerateConfigButton from './GenerageConfigButton';
 import ResolutionSelector from './ResolutionSelector';
@@ -17,11 +15,10 @@ interface Props {
 }
 
 export default function LayoutContainer({ initialState }: Props) {
-    const [game, setGame] = useState(initialState.game);
-    const [resolution, setResolution] = useState(initialState.resolution);
-    const [showConfigValuesModal, setShowConfigValuesModal] = useState(false);
     const [topScreen, setTopScreen] = useState(initialState.topScreen);
     const [bottomScreen, setBottomScreen] = useState(initialState.bottomScreen);
+    const [game, setGame] = useState(initialState.game);
+    const [resolution, setResolution] = useState(initialState.resolution);
     const [shareUrl, setShareUrl] = useState('');
 
     useEffect(() => {
@@ -46,16 +43,6 @@ export default function LayoutContainer({ initialState }: Props) {
 
     return (
         <div className="flex">
-            <Modal
-                open={showConfigValuesModal}
-                onClose={() => setShowConfigValuesModal(false)}
-                contentStyles={{
-                    paddingTop: '20px',
-                }}
-            >
-                <ConfigValues topScreen={topScreen} bottomScreen={bottomScreen} />
-            </Modal>
-
             <div className="flex flex-col items-center gap-4">
                 <div className="flex items-center justify-center gap-5">
                     <div className="min-w-60">
