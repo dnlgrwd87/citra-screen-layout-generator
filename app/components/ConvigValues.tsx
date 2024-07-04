@@ -1,6 +1,7 @@
 'use client';
 
 import ContentCopy from '@mui/icons-material/ContentCopy';
+import { DISPLAY_SCALE } from '../constants';
 import { ScreenData } from '../types';
 import CopyButton from './CopyButton';
 
@@ -16,12 +17,12 @@ export default function ConfigValues({ topScreen, bottomScreen }: Props) {
         const left = x;
         const right = x + width;
 
-        // We multipy by 2 because all values have been halved for display purposes
+        // We divide by display scale to get actual values
         return {
-            top: Math.round(top * 2),
-            bottom: Math.round(bottom * 2),
-            left: Math.round(left * 2),
-            right: Math.round(right * 2),
+            top: Math.round(top / DISPLAY_SCALE),
+            bottom: Math.round(bottom / DISPLAY_SCALE),
+            left: Math.round(left / DISPLAY_SCALE),
+            right: Math.round(right / DISPLAY_SCALE),
         };
     };
 
