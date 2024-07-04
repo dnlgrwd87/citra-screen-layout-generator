@@ -12,6 +12,8 @@ interface Props extends RndProps {
 }
 
 export default function Screen(props: Props) {
+    const { resolution, location, onChange } = props;
+
     const [contextMenu, setContextMenu] = React.useState<{
         mouseX: number;
         mouseY: number;
@@ -27,13 +29,13 @@ export default function Screen(props: Props) {
             return;
         }
 
-        const { x, y, width, height } = props.resolution.defaultScreenData[props.location];
+        const { x, y, width, height } = resolution.defaultScreenData[location];
 
         rnd.current?.updatePosition({ x, y });
         rnd.current?.updateSize({ width, height });
 
-        props.onChange({ x, y, width, height });
-    }, [props.resolution, props.location, props.onChange]);
+        onChange({ x, y, width, height });
+    }, [resolution, location, onChange]);
 
     const handleContextMenu = (event: React.MouseEvent) => {
         event.preventDefault();

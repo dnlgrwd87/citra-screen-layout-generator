@@ -52,12 +52,15 @@ export default function ConfigValues({ topScreen, bottomScreen }: Props) {
                     color="inherit"
                     disableElevation
                     copyText={copyText}
+                    successMessage="Successfully copied config values"
                     sx={{
                         minWidth: 0,
                         padding: '0 10px 5px 10px',
                         background: 'white',
                     }}
-                />
+                >
+                    <ContentCopy />
+                </CopyButton>
             </div>
             <pre>
                 <div className="text-sm l p-5 bg-gray-200 rounded-md shadow-md shadow-slate-300">

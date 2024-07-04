@@ -1,58 +1,66 @@
 'use client';
 
-import Check from '@mui/icons-material/Check';
-import ContentCopy from '@mui/icons-material/ContentCopy';
-import { Box, Button, ButtonProps } from '@mui/material';
+import { Alert, Button, ButtonProps, Portal, Snackbar } from '@mui/material';
 import { useState } from 'react';
 
 interface Props extends ButtonProps {
     copyText: string;
+    successMessage?: string;
+    errorMessage?: string;
 }
 
 export default function CopyButton(props: Props) {
-    const { copyText, ...buttonProps } = props;
-    const [copied, setCopied] = useState(false);
+    const { copyText, successMessage, errorMessage, ...buttonProps } = props;
+
+    const [showSnackBar, setShowSnackbar] = useState(false);
+    const [error, setError] = useState(false);
 
     const onClick = async () => {
         try {
+            setError(false);
+
             await navigator.clipboard.writeText(props.copyText);
 
-            setCopied(true);
+            setShowSnackbar(true);
         } catch (err) {
-            console.error('Failed to copy: ', err);
+            setError(true);
+            setShowSnackbar(true);
         }
     };
 
-    const getText = () => {
-        if (!copied) {
-            return props.children || <ContentCopy />;
-        }
-
-        return (
-            <div className="flex items-center gap-2" onClick={() => setCopied(false)}>
-                <span className="text-gray-700">Copied</span>
-                <Check
-                    sx={{
-                        fontSize: 16,
-                        color: '#5bc45b',
-                    }}
-                />
-            </div>
-        );
+    const onCloseSnackBar = () => {
+        setShowSnackbar(false);
     };
+
+    const snackbarMessage = error
+        ? errorMessage || 'Could not copy text'
+        : successMessage || 'Successfully copied';
 
     return (
-        <Box className="flex" sx={{ height: 42 }}>
-            <Button
-                {...buttonProps}
-                onClick={onClick}
-                sx={{
-                    pointerEvents: copied ? 'none' : 'inherit',
-                    background: copied ? 'white' : 'initial',
-                }}
-            >
-                {getText()}
+        <>
+            <Button {...buttonProps} onClick={onClick}>
+                {props.children}
             </Button>
-        </Box>
+            <Portal>
+                <Snackbar
+                    open={showSnackBar}
+                    autoHideDuration={3000}
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'center',
+                    }}
+                    onClose={onCloseSnackBar}
+                    message={snackbarMessage}
+                >
+                    <Alert
+                        onClose={onCloseSnackBar}
+                        severity={error ? 'error' : 'success'}
+                        sx={{ width: '100%' }}
+                    >
+                        {snackbarMessage}
+                    </Alert>
+                </Snackbar>
+            </Portal>
+        </>
     );
 }

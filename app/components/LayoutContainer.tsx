@@ -1,12 +1,14 @@
 'use client';
 
-import { Box, Button } from '@mui/material';
-import { useCallback, useState } from 'react';
+import { Box } from '@mui/material';
+import { useCallback, useEffect, useState } from 'react';
 import { InitialState, ScreenData } from '../types';
 import { getShareUrl } from '../utils/screenUtils';
 import ConfigValues from './ConvigValues';
+import CopyButton from './CopyButton';
+import Modal from './CustomModal';
 import GameSelector from './GameSelector';
-import Modal from './Modal';
+import GenerateConfigButton from './GenerageConfigButton';
 import ResolutionSelector from './ResolutionSelector';
 import Screen from './Screen';
 
@@ -20,20 +22,25 @@ export default function LayoutContainer({ initialState }: Props) {
     const [showConfigValuesModal, setShowConfigValuesModal] = useState(false);
     const [topScreen, setTopScreen] = useState(initialState.topScreen);
     const [bottomScreen, setBottomScreen] = useState(initialState.bottomScreen);
+    const [shareUrl, setShareUrl] = useState('');
 
     const onTopScreenChange = useCallback((changes: Partial<ScreenData>) => {
-        setTopScreen({
+        setTopScreen((topScreen) => ({
             ...topScreen,
             ...changes,
-        });
+        }));
     }, []);
 
     const onBottomScreenChange = useCallback((changes: Partial<ScreenData>) => {
-        setBottomScreen({
+        setBottomScreen((bottomScreen) => ({
             ...bottomScreen,
             ...changes,
-        });
+        }));
     }, []);
+
+    useEffect(() => {
+        setShareUrl(getShareUrl(topScreen, bottomScreen, resolution, game));
+    }, [topScreen, bottomScreen, resolution, game]);
 
     return (
         <div className="flex">
@@ -46,16 +53,8 @@ export default function LayoutContainer({ initialState }: Props) {
             >
                 <ConfigValues topScreen={topScreen} bottomScreen={bottomScreen} />
             </Modal>
-            <div className="flex flex-col items-center gap-4">
-                <button
-                    onClick={() => {
-                        const url = getShareUrl(topScreen, bottomScreen, resolution, game);
 
-                        console.log(url);
-                    }}
-                >
-                    Get share url
-                </button>
+            <div className="flex flex-col items-center gap-4">
                 <div className="flex items-center justify-center gap-5">
                     <div className="min-w-60">
                         <ResolutionSelector
@@ -66,13 +65,20 @@ export default function LayoutContainer({ initialState }: Props) {
                     <div className="min-w-60">
                         <GameSelector defaultGame={game} onChange={setGame} />
                     </div>
-                    <Button
+                    <GenerateConfigButton
                         className="shrink-0 h-full"
-                        onClick={() => setShowConfigValuesModal(true)}
+                        topScreen={topScreen}
+                        bottomScreen={bottomScreen}
+                    />
+                    <CopyButton
+                        className="shrink-0 h-full"
+                        copyText={shareUrl}
+                        successMessage="Successfully copied share url"
                     >
-                        Generate Config
-                    </Button>
+                        Copy Share Url
+                    </CopyButton>
                 </div>
+
                 <Box
                     className="bg-black relative"
                     sx={{
