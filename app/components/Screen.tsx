@@ -19,10 +19,14 @@ export default function Screen(props: Props) {
     const screen = useRef<Rnd>(null);
 
     useEffect(() => {
+        if (!screen.current) {
+            return;
+        }
+
         const { x, y, width, height } = props.screenData;
 
-        screen.current?.updatePosition({ x, y });
-        screen.current?.updateSize({ width, height });
+        screen.current.updatePosition({ x, y });
+        screen.current.updateSize({ width, height });
     }, [props.screenData]);
 
     const handleContextMenu = (event: React.MouseEvent) => {

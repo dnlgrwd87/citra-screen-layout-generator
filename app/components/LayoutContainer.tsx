@@ -1,7 +1,7 @@
 'use client';
 
 import { Box } from '@mui/material';
-import { useCallback, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { InitialState, Resolution, ScreenData } from '../types';
 import { getShareUrl } from '../utils/screenUtils';
 import ConfigValues from './ConvigValues';
@@ -24,28 +24,24 @@ export default function LayoutContainer({ initialState }: Props) {
     const [bottomScreen, setBottomScreen] = useState(initialState.bottomScreen);
     const [shareUrl, setShareUrl] = useState('');
 
-    const onTopScreenChange = useCallback((changes: Partial<ScreenData>) => {
-        setTopScreen((topScreen) => ({
-            ...topScreen,
-            ...changes,
-        }));
-    }, []);
-
-    const onBottomScreenChange = useCallback((changes: Partial<ScreenData>) => {
-        setBottomScreen((bottomScreen) => ({
-            ...bottomScreen,
-            ...changes,
-        }));
-    }, []);
-
     useEffect(() => {
         setShareUrl(getShareUrl(topScreen, bottomScreen, resolution, game));
     }, [topScreen, bottomScreen, resolution, game]);
 
+    const onScreenChange = (
+        changeFunc: Dispatch<SetStateAction<ScreenData>>,
+        changes: Partial<ScreenData>
+    ) => {
+        changeFunc((screen) => ({
+            ...screen,
+            ...changes,
+        }));
+    };
+
     const onResolutionChange = (resolution: Resolution) => {
         setResolution(resolution);
-        onTopScreenChange(resolution.defaultScreenData.top);
-        onBottomScreenChange(resolution.defaultScreenData.bottom);
+        onScreenChange(setTopScreen, resolution.defaultScreenData.top);
+        onScreenChange(setBottomScreen, resolution.defaultScreenData.bottom);
     };
 
     return (
@@ -95,13 +91,13 @@ export default function LayoutContainer({ initialState }: Props) {
                     <Screen
                         imageSrc={game.topImgSrc}
                         screenData={topScreen}
-                        onChange={onTopScreenChange}
+                        onChange={(changes) => onScreenChange(setTopScreen, changes)}
                     />
 
                     <Screen
                         imageSrc={game.bottomImgSrc}
                         screenData={bottomScreen}
-                        onChange={onBottomScreenChange}
+                        onChange={(changes) => onScreenChange(setBottomScreen, changes)}
                     />
                 </Box>
             </div>
