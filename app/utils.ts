@@ -1,7 +1,7 @@
 import { Buffer } from 'buffer';
 import { Rnd } from 'react-rnd';
-import { resolutions } from './constants';
-import { Game, Resolution, ScreenData } from './types';
+import { resolutions, screenRatios } from './constants';
+import { Game, Resolution, ScreenData, ScreenLocation } from './types';
 
 export const updateScreenData = (screen: Rnd, { width, height, x, y }: ScreenData) => {
     screen.updatePosition({ x, y });
@@ -48,7 +48,7 @@ export const getInferedResolution = (): Resolution => {
     const userScreenWidth = window.outerWidth;
     const resList = Object.values(resolutions);
     const sortedResolutions = [...resList.sort((a, b) => a.width - b.width)];
-    
+
     let targetRes = sortedResolutions[0];
     let diff = targetRes.width;
 
@@ -61,4 +61,30 @@ export const getInferedResolution = (): Resolution => {
     });
 
     return targetRes;
+};
+
+export const getDefaultScreenData = (
+    resolution: Resolution
+): { [key in ScreenLocation]: ScreenData } => {
+    const scaledHeight = resolution.height / resolution.displayScale;
+    const topHeight = scaledHeight * 0.6;
+    const bottomHeight = scaledHeight * 0.4;
+
+    const topWidth = (topHeight * screenRatios.top.width) / screenRatios.top.height;
+    const bottomWidth = (bottomHeight * screenRatios.bottom.width) / screenRatios.bottom.height;
+
+    return {
+        top: {
+            x: (resolution.width / 2 - topWidth) / 2,
+            y: 0,
+            width: topWidth,
+            height: topHeight,
+        },
+        bottom: {
+            x: (resolution.width / 2 - bottomWidth) / 2,
+            y: scaledHeight - bottomHeight,
+            width: bottomWidth,
+            height: bottomHeight,
+        },
+    };
 };

@@ -15,6 +15,17 @@ export const games: { [key in GameKey]: Game } = {
     },
 };
 
+export const screenRatios = {
+    top: {
+        width: 5,
+        height: 3,
+    },
+    bottom: {
+        width: 4,
+        height: 3,
+    },
+};
+
 export const resolutions: { [key in ResolutionKey]: Resolution } = {
     _1280x800: {
         id: '_1280x800',
@@ -23,20 +34,6 @@ export const resolutions: { [key in ResolutionKey]: Resolution } = {
         displayName: '1280 x 800 (Steam Deck)',
         aspectRatio: '16 / 10',
         displayScale: 2,
-        defaultScreenData: {
-            top: {
-                x: 104.5,
-                y: 0,
-                width: 431,
-                height: 259,
-            },
-            bottom: {
-                x: 227.5,
-                y: 261,
-                width: 185,
-                height: 139,
-            },
-        },
     },
     _1366x768: {
         id: '_1366x768',
@@ -45,20 +42,6 @@ export const resolutions: { [key in ResolutionKey]: Resolution } = {
         displayName: '1366 x 768',
         aspectRatio: '16 / 9',
         displayScale: 2,
-        defaultScreenData: {
-            top: {
-                x: 139,
-                y: 0,
-                width: 405,
-                height: 243,
-            },
-            bottom: {
-                x: 249,
-                y: 245,
-                width: 185,
-                height: 139,
-            },
-        },
     },
     _1920x1080: {
         id: '_1920x1080',
@@ -67,20 +50,6 @@ export const resolutions: { [key in ResolutionKey]: Resolution } = {
         displayName: '1920 x 1080',
         aspectRatio: '16 / 9',
         displayScale: 2,
-        defaultScreenData: {
-            top: {
-                x: 201.5,
-                y: 0,
-                width: 557,
-                height: 334,
-            },
-            bottom: {
-                x: 344.5,
-                y: 336,
-                width: 271,
-                height: 204,
-            },
-        },
     },
     _2560x1440: {
         id: '_2560x1440',
@@ -89,19 +58,5 @@ export const resolutions: { [key in ResolutionKey]: Resolution } = {
         displayName: '2560 x 1440',
         aspectRatio: '16 / 9',
         displayScale: 2,
-        defaultScreenData: {
-            top: {
-                x: 274.5,
-                y: 0,
-                width: 731,
-                height: 438,
-            },
-            bottom: {
-                x: 454,
-                y: 440,
-                width: 372,
-                height: 280,
-            },
-        },
     },
 };

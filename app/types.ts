@@ -31,9 +31,6 @@ export type Resolution = {
     height: number;
     displayName: string;
     aspectRatio: AspectRatio;
-    defaultScreenData: {
-        [key in ScreenLocation]: ScreenData;
-    };
     displayScale: number;
 };
 
@@ -55,4 +52,4 @@ export type InitialState = {
     game: Game;
     topScreen: ScreenData;
     bottomScreen: ScreenData;
-}
+};
