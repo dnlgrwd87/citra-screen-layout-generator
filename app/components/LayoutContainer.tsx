@@ -18,9 +18,8 @@ export default function LayoutContainer({ initialState }: Props) {
     const [game, setGame] = useState(initialState.game);
     const [resolution, setResolution] = useState(initialState.resolution);
     const [showConfigValuesModal, setShowConfigValuesModal] = useState(false);
-
-    const [topScreen, setTopScreen] = useState(initialState.defaultTop);
-    const [bottomScreen, setBottomScreen] = useState(initialState.defaultBottom);
+    const [topScreen, setTopScreen] = useState(initialState.topScreen);
+    const [bottomScreen, setBottomScreen] = useState(initialState.bottomScreen);
 
     return (
         <div className="flex">
@@ -70,7 +69,7 @@ export default function LayoutContainer({ initialState }: Props) {
                     <Screen
                         imageSrc={game.topImgSrc}
                         resolution={resolution}
-                        default={initialState.defaultTop}
+                        default={initialState.topScreen}
                         location="top"
                         onChange={(changes) => {
                             setTopScreen((topScreen) => ({
@@ -83,7 +82,7 @@ export default function LayoutContainer({ initialState }: Props) {
                     <Screen
                         imageSrc={game.bottomImgSrc}
                         resolution={resolution}
-                        default={initialState.defaultBottom}
+                        default={initialState.bottomScreen}
                         location="bottom"
                         onChange={(changes) => {
                             setBottomScreen((bottomScreen) => ({

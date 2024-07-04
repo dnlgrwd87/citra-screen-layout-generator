@@ -1,7 +1,8 @@
 import LayoutContainer from './components/LayoutContainer';
 import { games, resolutions } from './constants';
-import { InitialState } from './types';
-import { getParsedParams } from './utils/validators';
+import { InitialState, ParsedParams } from './types';
+import { decodeParams } from './utils/screenUtils';
+import { StateFromParamsSchema } from './utils/validators';
 
 export default function Home({ searchParams }: any) {
     let initialState: InitialState | undefined;
@@ -15,25 +16,24 @@ export default function Home({ searchParams }: any) {
             return {
                 resolution: defuaultResolution,
                 game: games.zelda,
-                defaultTop: defuaultResolution.defaultScreenData.top,
-                defaultBottom: defuaultResolution.defaultScreenData.bottom,
+                topScreen: defuaultResolution.defaultScreenData.top,
+                bottomScreen: defuaultResolution.defaultScreenData.bottom,
             };
         }
 
-        const parsedParams = getParsedParams(searchParams);
-
-        console.log(parsedParams);
+        const decodedParams = JSON.parse(decodeParams(searchParams.id));
+        const parsedParams = StateFromParamsSchema.parse(decodedParams) as ParsedParams;
 
         return {
             resolution: resolutions[parsedParams.resolutionId],
             game: games[parsedParams.gameId],
-            defaultTop: {
+            topScreen: {
                 x: parsedParams.topX,
                 y: parsedParams.topY,
                 width: parsedParams.topWidth,
                 height: parsedParams.topHeight,
             },
-            defaultBottom: {
+            bottomScreen: {
                 x: parsedParams.bottomX,
                 y: parsedParams.bottomY,
                 width: parsedParams.bottomWidth,
@@ -45,7 +45,6 @@ export default function Home({ searchParams }: any) {
     try {
         initialState = getInitialState();
     } catch (e) {
-        console.log(e.message);
         invalidParams = true;
     }
 

@@ -43,11 +43,6 @@ export default function ConfigValuesModal({ topScreen, bottomScreen, onClose, op
         ];
     };
 
-    // todo: implement
-    const onCopy = () => {
-        console.log('copied!');
-    };
-
     return (
         <Modal
             open={open}

@@ -13,30 +13,32 @@ export const getShareUrl = (
     resolution: Resolution,
     game: Game
 ) => {
-    const params = {
+    const layoutState = {
         resolutionId: resolution.id,
         gameId: game.id,
-        topX: topScreen.x.toString(),
-        topY: topScreen.y.toString(),
-        topWidth: topScreen.width.toString(),
-        topHeight: topScreen.height.toString(),
-        bottomX: bottomScreen.x.toString(),
-        bottomY: bottomScreen.y.toString(),
-        bottomWidth: bottomScreen.width.toString(),
-        bottomHeight: bottomScreen.height.toString(),
+        topX: topScreen.x,
+        topY: topScreen.y,
+        topWidth: topScreen.width,
+        topHeight: topScreen.height,
+        bottomX: bottomScreen.x,
+        bottomY: bottomScreen.y,
+        bottomWidth: bottomScreen.width,
+        bottomHeight: bottomScreen.height,
     };
 
-    console.log(params);
+    const params = {
+        id: encodeParams(JSON.stringify(layoutState))
+    }
 
     const queryString = new URLSearchParams(params).toString();
 
     return `${window.location.origin}?${queryString}`;
 };
 
-export const encodeParams = (data: any) => {
+export const encodeParams = (data: string) => {
     return Buffer.from(data).toString('base64');
 };
 
-export const decodeParams = (data: any) => {
+export const decodeParams = (data: string): string => {
     return Buffer.from(data, 'base64').toString('ascii');
 };

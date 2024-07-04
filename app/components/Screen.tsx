@@ -21,7 +21,7 @@ export default function Screen(props: Props) {
     const mounted = useRef(false);
 
     useEffect(() => {
-        if (!rnd.current || !mounted.current) {
+        if (!mounted.current) {
             mounted.current = true;
 
             return;
@@ -29,11 +29,11 @@ export default function Screen(props: Props) {
 
         const { x, y, width, height } = props.resolution.defaultScreenData[props.location];
 
-        rnd.current.updatePosition({ x, y });
-        rnd.current.updateSize({ width, height });
-        
+        rnd.current?.updatePosition({ x, y });
+        rnd.current?.updateSize({ width, height });
+
         props.onChange({ x, y, width, height });
-    }, [props.resolution, props.location]);
+    }, [props.resolution, props.location, props.onChange]);
 
     const handleContextMenu = (event: React.MouseEvent) => {
         event.preventDefault();

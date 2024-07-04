@@ -2,12 +2,13 @@ import { z } from 'zod';
 import { games, resolutions } from '../constants';
 import { ParsedParams } from '../types';
 
-const gameIds = Object.keys(games);
-const resolutionIds = Object.keys(resolutions);
-
-const StateFromParamsSchema = z.object({
-    gameId: z.custom<string>((val) => gameIds.includes(val)),
-    resolutionId: z.custom<string>((val) => resolutionIds.includes(val)),
+export const StateFromParamsSchema = z.object({
+    gameId: z.custom<string>((val) => (
+        Object.keys(games).includes(val)
+    )),
+    resolutionId: z.custom<string>((val) => (
+        Object.keys(resolutions).includes(val)
+    )),
     topX: z.number(),
     topY: z.number(),
     topWidth: z.number(),
@@ -18,14 +19,6 @@ const StateFromParamsSchema = z.object({
     bottomHeight: z.number(),
 });
 
-export const getParsedParams = (params: { [key: string]: string }): ParsedParams => {
-    const isNumeric = (val: string) => /^[+-]?\d+(\.\d+)?$/.test(val);
-
-    let objFromParams: { [key: string]: string | number } = {};
-
-    for (const [key, value] of Object.entries(params)) {
-        objFromParams[key] = isNumeric(value) ? Number(value) : value;
-    }
-
-    return StateFromParamsSchema.parse(objFromParams) as ParsedParams;
+export const validateParams = (params: ParsedParams): void => {
+    StateFromParamsSchema.parse(params);
 };
