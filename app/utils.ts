@@ -1,6 +1,6 @@
 import { Buffer } from 'buffer';
 import { Rnd } from 'react-rnd';
-import { resolutions, screenRatios } from './constants';
+import { DISPLAY_SCALE, resolutions, screenRatios } from './constants';
 import { Game, Resolution, ScreenData, ScreenLocation } from './types';
 
 export const updateScreenData = (screen: Rnd, { width, height, x, y }: ScreenData) => {
@@ -66,7 +66,8 @@ export const getInferedResolution = (): Resolution => {
 export const getDefaultScreenData = (
     resolution: Resolution
 ): { [key in ScreenLocation]: ScreenData } => {
-    const scaledHeight = resolution.height / resolution.displayScale;
+    const scaledHeight = resolution.height * DISPLAY_SCALE;
+    const scaledWidth = resolution.width * DISPLAY_SCALE;
     const topHeight = scaledHeight * 0.6;
     const bottomHeight = scaledHeight * 0.4;
 

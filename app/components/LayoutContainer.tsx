@@ -2,7 +2,7 @@
 
 import { Box } from '@mui/material';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { games } from '../constants';
+import { DISPLAY_SCALE, games } from '../constants';
 import { InitialState, Resolution, ScreenData } from '../types';
 import { getDefaultScreenData, getInferedResolution, getShareUrl } from '../utils';
 import CopyButton from './CopyButton';
@@ -85,8 +85,8 @@ export default function LayoutContainer({ initialState }: Props) {
                 <Box
                     className="bg-black relative"
                     sx={{
-                        width: resolution.width / resolution.displayScale,
-                        aspectRatio: resolution.aspectRatio,
+                        width: resolution.width * DISPLAY_SCALE,
+                        height: resolution.height * DISPLAY_SCALE,
                     }}
                 >
                     <Screen

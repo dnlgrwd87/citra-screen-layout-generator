@@ -1,5 +1,3 @@
-export type AspectRatio = '16 / 9' | '16 / 10';
-
 export type ResolutionKey = '_1280x800' | '_1366x768' | '_1920x1080' | '_2560x1440';
 
 export type GameKey = 'zelda' | 'pkmn';
@@ -30,8 +28,6 @@ export type Resolution = {
     width: number;
     height: number;
     displayName: string;
-    aspectRatio: AspectRatio;
-    displayScale: number;
 };
 
 export type ParsedParams = {
