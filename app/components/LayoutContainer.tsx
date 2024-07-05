@@ -1,7 +1,7 @@
 'use client';
 
 import { Box } from '@mui/material';
-import { Dispatch, SetStateAction, useMemo, useState } from 'react';
+import { Dispatch, SetStateAction, useMemo, useRef, useState } from 'react';
 import { DISPLAY_SCALE, GAMES } from '../constants';
 import { InitialState, Resolution, ScreenData } from '../types';
 import { getDefaultScreenData, getInferedResolution, getShareUrl } from '../utils';
@@ -16,22 +16,20 @@ interface Props {
 }
 
 export default function LayoutContainer({ initialState }: Props) {
-    const defaultResolution = useMemo(() => initialState?.resolution || getInferedResolution(), []);
-    const defaultScreenData = useMemo(
-        () =>
-            initialState
-                ? {
-                      top: initialState.topScreen,
-                      bottom: initialState.bottomScreen,
-                  }
-                : getDefaultScreenData(defaultResolution),
-        []
+    const defaultResolution = useRef(initialState?.resolution || getInferedResolution());
+    const defaultScreenData = useRef(
+        initialState
+            ? {
+                  top: initialState.topScreen,
+                  bottom: initialState.bottomScreen,
+              }
+            : getDefaultScreenData(defaultResolution.current)
     );
 
-    const [resolution, setResolution] = useState(defaultResolution);
+    const [topScreen, setTopScreen] = useState(defaultScreenData.current.top);
+    const [bottomScreen, setBottomScreen] = useState(defaultScreenData.current.bottom);
+    const [resolution, setResolution] = useState(defaultResolution.current);
     const [game, setGame] = useState(initialState?.game || GAMES.zelda);
-    const [topScreen, setTopScreen] = useState(defaultScreenData.top);
-    const [bottomScreen, setBottomScreen] = useState(defaultScreenData.bottom);
 
     const shareUrl = useMemo(
         () => getShareUrl(topScreen, bottomScreen, resolution, game),
