@@ -24,14 +24,15 @@ export type Game = {
 };
 
 export type Resolution = {
-    id: ResolutionKey;
+    id: string;
     width: number;
     height: number;
-    displayName: string;
+    displayName?: string;
 };
 
 export type ParsedParams = {
-    resolutionId: ResolutionKey;
+    resolutionWidth: number;
+    resolutionHeight: number;
     gameId: GameKey;
     topX: number;
     topY: number;

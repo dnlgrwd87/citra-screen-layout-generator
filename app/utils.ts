@@ -1,6 +1,6 @@
 import { Buffer } from 'buffer';
 import { Rnd } from 'react-rnd';
-import { DISPLAY_SCALE, RESOLUTIONS, SCREEN_RATIOS } from './constants';
+import { DISPLAY_SCALE, PRESET_RESOLUTIONS, SCREEN_RATIOS } from './constants';
 import { Game, Resolution, ScreenData, ScreenLocation } from './types';
 
 export const updateScreenData = (screen: Rnd, { width, height, x, y }: ScreenData) => {
@@ -15,7 +15,8 @@ export const getShareUrl = (
     game: Game
 ) => {
     const layoutState = {
-        resolutionId: resolution.id,
+        resolutionWidth: resolution.width,
+        resolutionHeight: resolution.height,
         gameId: game.id,
         topX: topScreen.x,
         topY: topScreen.y,
@@ -46,17 +47,17 @@ export const decodeParams = (data: string): string => {
 
 export const getInferedResolution = (): Resolution => {
     const userScreenWidth = window.outerWidth;
-    const resList = Object.values(RESOLUTIONS);
-    const sortedResolutions = [...resList.sort((a, b) => a.width - b.width)];
+    const resolutions = [...PRESET_RESOLUTIONS.sort((a, b) => a.width - b.width)];
 
-    let targetRes = sortedResolutions[0];
+    let targetRes = resolutions[0];
     let diff = targetRes.width;
 
-    resList.forEach((res) => {
+    resolutions.forEach((res) => {
         const currentDiff = Math.abs(res.width - userScreenWidth);
+
         if (currentDiff < diff) {
             diff = currentDiff;
-            targetRes = RESOLUTIONS[res.id];
+            targetRes = res;
         }
     });
 

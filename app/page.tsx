@@ -1,6 +1,6 @@
 import LayoutContainer from './components/LayoutContainer';
 import MountedComponent from './components/MountedComponent';
-import { GAMES, RESOLUTIONS } from './constants';
+import { GAMES } from './constants';
 import { StateFromParamsSchema } from './schemas';
 import { InitialState, ParsedParams } from './types';
 import { decodeParams } from './utils';
@@ -18,7 +18,10 @@ export default function Home({ searchParams }: any) {
         const parsedParams = StateFromParamsSchema.parse(decodedParams) as ParsedParams;
 
         return {
-            resolution: RESOLUTIONS[parsedParams.resolutionId],
+            resolution: {
+                width: parsedParams.resolutionWidth,
+                height: parsedParams.resolutionHeight,
+            },
             game: GAMES[parsedParams.gameId],
             topScreen: {
                 x: parsedParams.topX,

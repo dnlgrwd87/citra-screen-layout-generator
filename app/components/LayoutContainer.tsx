@@ -6,9 +6,9 @@ import { DISPLAY_SCALE, GAMES } from '../constants';
 import { InitialState, Resolution, ScreenData } from '../types';
 import { getDefaultScreenData, getInferedResolution, getShareUrl } from '../utils';
 import CopyButton from './CopyButton';
+import CustomResolution from './CustomResolution';
 import GameSelector from './GameSelector';
 import GenerateConfigButton from './GenerageConfigButton';
-import ResolutionSelector from './ResolutionSelector';
 import Screen from './Screen';
 
 interface Props {
@@ -57,13 +57,13 @@ export default function LayoutContainer({ initialState }: Props) {
     return (
         <div className="flex">
             <div className="flex flex-col items-center gap-8">
+                <div className="min-w-60">
+                    <CustomResolution
+                        defaultResolution={resolution}
+                        onChange={onResolutionChange}
+                    />
+                </div>
                 <div className="flex items-center justify-center gap-5">
-                    <div className="min-w-60">
-                        <ResolutionSelector
-                            defaultResolution={resolution}
-                            onChange={onResolutionChange}
-                        />
-                    </div>
                     <div className="min-w-60">
                         <GameSelector defaultGame={game} onChange={setGame} />
                     </div>
