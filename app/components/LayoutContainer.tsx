@@ -1,7 +1,7 @@
 'use client';
 
 import { Box } from '@mui/material';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useMemo, useState } from 'react';
 import { DISPLAY_SCALE, GAMES } from '../constants';
 import { InitialState, Resolution, ScreenData } from '../types';
 import { getDefaultScreenData, getInferedResolution, getShareUrl } from '../utils';
@@ -16,25 +16,27 @@ interface Props {
 }
 
 export default function LayoutContainer({ initialState }: Props) {
-    const defaultResolution = initialState?.resolution || getInferedResolution();
-    const defaultScreenData = initialState
-        ? {
-              top: initialState.topScreen,
-              bottom: initialState.bottomScreen,
-          }
-        : getDefaultScreenData(defaultResolution);
+    const defaultResolution = useMemo(() => initialState?.resolution || getInferedResolution(), []);
+    const defaultScreenData = useMemo(
+        () =>
+            initialState
+                ? {
+                      top: initialState.topScreen,
+                      bottom: initialState.bottomScreen,
+                  }
+                : getDefaultScreenData(defaultResolution),
+        []
+    );
 
     const [resolution, setResolution] = useState(defaultResolution);
     const [game, setGame] = useState(initialState?.game || GAMES.zelda);
     const [topScreen, setTopScreen] = useState(defaultScreenData.top);
     const [bottomScreen, setBottomScreen] = useState(defaultScreenData.bottom);
-    const [shareUrl, setShareUrl] = useState(
-        getShareUrl(topScreen, bottomScreen, resolution, game)
-    );
 
-    useEffect(() => {
-        setShareUrl(getShareUrl(topScreen, bottomScreen, resolution, game));
-    }, [topScreen, bottomScreen, resolution, game]);
+    const shareUrl = useMemo(
+        () => getShareUrl(topScreen, bottomScreen, resolution, game),
+        [topScreen, bottomScreen, resolution, game]
+    );
 
     const onScreenChange = (
         changeFunc: Dispatch<SetStateAction<ScreenData>>,
@@ -47,10 +49,9 @@ export default function LayoutContainer({ initialState }: Props) {
     };
 
     const onResolutionChange = (resolution: Resolution) => {
-        setResolution(resolution);
-
         const { top, bottom } = getDefaultScreenData(resolution);
 
+        setResolution(resolution);
         onScreenChange(setTopScreen, top);
         onScreenChange(setBottomScreen, bottom);
     };

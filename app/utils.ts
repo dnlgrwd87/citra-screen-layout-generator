@@ -81,7 +81,7 @@ const getHorizontalLayout = (resolution: Resolution): { [key in ScreenLocation]:
     const topWidth = (screenHeight * SCREEN_RATIOS.top.width) / SCREEN_RATIOS.top.height;
     const bottomWidth = (screenHeight * SCREEN_RATIOS.bottom.width) / SCREEN_RATIOS.bottom.height;
 
-    return {
+    const x = {
         top: {
             x: (scaledWidth - topWidth) / 2,
             y: 0,
@@ -95,6 +95,10 @@ const getHorizontalLayout = (resolution: Resolution): { [key in ScreenLocation]:
             height: screenHeight,
         },
     };
+
+    console.log(x);
+
+    return x;
 };
 
 const getVeritcalLayout = (resolution: Resolution): { [key in ScreenLocation]: ScreenData } => {
