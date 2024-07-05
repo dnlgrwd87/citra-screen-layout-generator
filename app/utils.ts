@@ -81,45 +81,45 @@ const getHorizontalLayout = (resolution: Resolution): { [key in ScreenLocation]:
     const topWidth = (screenHeight * SCREEN_RATIOS.top.width) / SCREEN_RATIOS.top.height;
     const bottomWidth = (screenHeight * SCREEN_RATIOS.bottom.width) / SCREEN_RATIOS.bottom.height;
 
-    const x = {
+    return {
         top: {
-            x: (scaledWidth - topWidth) / 2,
+            x: Math.round((scaledWidth - topWidth) / 2),
             y: 0,
-            width: topWidth,
-            height: screenHeight,
+            width: Math.round(topWidth),
+            height: Math.round(screenHeight),
         },
         bottom: {
-            x: (scaledWidth - bottomWidth) / 2,
-            y: scaledHeight - screenHeight,
-            width: bottomWidth,
-            height: screenHeight,
+            x: Math.round((scaledWidth - bottomWidth) / 2),
+            y: Math.round(scaledHeight - screenHeight),
+            width: Math.round(bottomWidth),
+            height: Math.round(screenHeight),
         },
     };
-
-    console.log(x);
-
-    return x;
 };
 
 const getVeritcalLayout = (resolution: Resolution): { [key in ScreenLocation]: ScreenData } => {
     const scaledWidth = resolution.width * DISPLAY_SCALE;
     const scaledHeight = resolution.height * DISPLAY_SCALE;
 
-    const topHeight = (scaledWidth * SCREEN_RATIOS.top.height) / SCREEN_RATIOS.top.width;
-    const bottomHeight = (scaledWidth * SCREEN_RATIOS.bottom.height) / SCREEN_RATIOS.bottom.width;
+    const topHeight = Math.round(
+        (scaledWidth * SCREEN_RATIOS.top.height) / SCREEN_RATIOS.top.width
+    );
+    const bottomHeight = Math.round(
+        (scaledWidth * SCREEN_RATIOS.bottom.height) / SCREEN_RATIOS.bottom.width
+    );
 
     return {
         top: {
             x: 0,
-            y: scaledHeight / 2 - topHeight,
-            width: scaledWidth,
-            height: topHeight,
+            y: Math.round(scaledHeight / 2 - topHeight),
+            width: Math.round(scaledWidth),
+            height: Math.round(topHeight),
         },
         bottom: {
             x: 0,
-            y: scaledHeight / 2,
-            width: scaledWidth,
-            height: bottomHeight,
+            y: Math.round(scaledHeight / 2),
+            width: Math.round(scaledWidth),
+            height: Math.round(bottomHeight),
         },
     };
 };
