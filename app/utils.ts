@@ -105,22 +105,23 @@ const getVeritcalLayout = (resolution: Resolution): { [key in ScreenLocation]: S
     const topHeight = Math.round(
         (scaledWidth * SCREEN_RATIOS.top.height) / SCREEN_RATIOS.top.width
     );
-    const bottomHeight = Math.round(
-        (scaledWidth * SCREEN_RATIOS.bottom.height) / SCREEN_RATIOS.bottom.width
-    );
 
-    return {
-        top: {
-            x: 0,
-            y: Math.round(scaledHeight / 2 - topHeight),
-            width: Math.round(scaledWidth),
-            height: Math.round(topHeight),
-        },
-        bottom: {
-            x: 0,
-            y: Math.round(scaledHeight / 2),
-            width: Math.round(scaledWidth),
-            height: Math.round(bottomHeight),
-        },
+    const top = {
+        x: 0,
+        y: Math.max(Math.round(scaledHeight / 2 - topHeight), 0),
+        width: Math.round(scaledWidth),
+        height: Math.round(topHeight),
     };
+
+    const bottomHeight = scaledHeight - topHeight - 2 * top.y;
+    const bottomWidth = (bottomHeight * SCREEN_RATIOS.bottom.width) / SCREEN_RATIOS.bottom.height;
+
+    const bottom = {
+        x: Math.round((scaledWidth - bottomWidth) / 2),
+        y: Math.round(top.y + top.height),
+        width: Math.round(bottomWidth),
+        height: Math.round(bottomHeight),
+    };
+
+    return { top, bottom };
 };
