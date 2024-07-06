@@ -19,7 +19,7 @@ export default function RootLayout({
             <ThemeProvider theme={theme}>
                 <body className="bg-gray-100">
                     <Navbar />
-                    {children}
+                    <div className="p-8">{children}</div>
                 </body>
             </ThemeProvider>
         </html>

@@ -52,7 +52,7 @@ export default function Home({ searchParams }: Props) {
     }
 
     return (
-        <main className="flex justify-center p-8">
+        <main className="flex justify-center">
             {invalidParams ? (
                 <InvalidLayout />
             ) : (

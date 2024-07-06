@@ -85,7 +85,7 @@ export default function LayoutContainer({ initialState }: Props) {
                 </div>
 
                 <div className="flex flex-col gap-3">
-                    <div className="flex items-center self-center gap-2 text-sm">
+                    <div className="flex items-center self-center gap-2 text-sm text-gray-700">
                         <TipsAndUpdatesIcon fontSize="small" />
                         Right click a screen to quickly position it
                     </div>
