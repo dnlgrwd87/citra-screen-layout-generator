@@ -2,10 +2,11 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 export default function Navbar() {
     const currentPath = usePathname();
+    const router = useRouter();
 
     const getLinkClass = (path: string) => {
         return path === currentPath ? 'text-blue-500' : 'text-black hover:text-blue-500';
@@ -27,9 +28,15 @@ export default function Navbar() {
                     </span>
                 </div>
                 <div className="flex gap-8 text-lg">
-                    <Link href="/" className={getLinkClass('/')}>
+                    <span
+                        className={`${getLinkClass('/')} cursor-pointer`}
+                        onClick={() => {
+                            router.push('/');
+                            router.refresh();
+                        }}
+                    >
                         Generator
-                    </Link>
+                    </span>
                     <Link href="/about" className={getLinkClass('/about')}>
                         About
                     </Link>
