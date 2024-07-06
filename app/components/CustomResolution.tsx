@@ -44,23 +44,44 @@ export default function ResolutionSelector(props: Props) {
         <>
             <FormControl fullWidth>
                 <div className="flex gap-5">
-                    <TextField
-                        id="width"
-                        label="Width"
-                        type="number"
-                        sx={{ width: 145 }}
-                        value={resolution.width}
-                        onChange={onResolutionChange}
-                    />
-                    <TextField
-                        id="height"
-                        label="Height"
-                        type="number"
-                        sx={{ width: 145 }}
-                        value={resolution.height}
-                        onChange={onResolutionChange}
-                    />
-                    <Button onClick={onSetResolution}>Set</Button>
+                    <div>
+                        <TextField
+                            id="width"
+                            label="Width"
+                            type="number"
+                            sx={{
+                                width: 145,
+                                '& .MuiInputBase-root': {
+                                    borderTopRightRadius: 0,
+                                    borderBottomRightRadius: 0,
+                                },
+                            }}
+                            value={resolution.width}
+                            onChange={onResolutionChange}
+                        />
+                        <TextField
+                            id="height"
+                            label="Height"
+                            type="number"
+                            sx={{
+                                width: 145,
+                                '& .MuiInputBase-root': {
+                                    borderRadius: 0,
+                                },
+                            }}
+                            value={resolution.height}
+                            onChange={onResolutionChange}
+                        />
+                        <Button
+                            onClick={onSetResolution}
+                            sx={{
+                                borderTopLeftRadius: 0,
+                                borderBottomLeftRadius: 0,
+                            }}
+                        >
+                            Set
+                        </Button>
+                    </div>
                     <ResolutionMenu onChange={onPresetResolutionChange} />
                 </div>
             </FormControl>

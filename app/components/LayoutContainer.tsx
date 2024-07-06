@@ -57,28 +57,30 @@ export default function LayoutContainer({ initialState }: Props) {
     return (
         <div className="flex">
             <div className="flex flex-col items-center gap-8">
-                <div className="min-w-60">
-                    <CustomResolution
-                        defaultResolution={resolution}
-                        onChange={onResolutionChange}
-                    />
-                </div>
-                <div className="flex items-center justify-center gap-5">
+                <div className="flex flex-col gap-8">
                     <div className="min-w-60">
-                        <GameSelector defaultGame={game} onChange={setGame} />
+                        <CustomResolution
+                            defaultResolution={resolution}
+                            onChange={onResolutionChange}
+                        />
                     </div>
-                    <GenerateConfigButton
-                        className="shrink-0 h-full"
-                        topScreen={topScreen}
-                        bottomScreen={bottomScreen}
-                    />
-                    <CopyButton
-                        className="shrink-0 h-full"
-                        copyText={shareUrl}
-                        successMessage="Successfully copied share url"
-                    >
-                        Copy Share Url
-                    </CopyButton>
+                    <div className="flex items-center justify-center gap-5">
+                        <div className="min-w-60">
+                            <GameSelector defaultGame={game} onChange={setGame} />
+                        </div>
+                        <GenerateConfigButton
+                            className="shrink-0 h-full"
+                            topScreen={topScreen}
+                            bottomScreen={bottomScreen}
+                        />
+                        <CopyButton
+                            className="shrink-0 h-full"
+                            copyText={shareUrl}
+                            successMessage="Successfully copied share url"
+                        >
+                            Copy Share Url
+                        </CopyButton>
+                    </div>
                 </div>
 
                 <Box

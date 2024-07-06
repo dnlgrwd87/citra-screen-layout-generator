@@ -46,30 +46,22 @@ export default function ConfigValues({ topScreen, bottomScreen }: Props) {
     const copyText = getConfigValues().join('\n');
 
     return (
-        <div className="flex flex-col gap-4">
-            <div className="flex justify-between items-center">
-                <div>Paste into qt-config.ini</div>
-                <CopyButton
-                    color="inherit"
-                    disableElevation
-                    copyText={copyText}
-                    successMessage="Successfully copied config values"
-                    sx={{
-                        minWidth: 0,
-                        padding: '0 10px 5px 10px',
-                        background: 'white',
-                    }}
-                >
-                    <ContentCopy />
-                </CopyButton>
-            </div>
-            <pre>
-                <div className="text-sm l p-5 bg-gray-200 rounded-md shadow-md shadow-slate-300">
-                    {getConfigValues().map((val) => (
-                        <p key={val}>{val}</p>
-                    ))}
-                </div>
+        <div className="flex flex-col gap-8 text-sm pt-4">
+            <pre className="bg-gray-200 p-7 rounded-md shadow-md">
+                {getConfigValues().map((val) => (
+                    <p key={val}>{val}</p>
+                ))}
             </pre>
+            <CopyButton
+                sx={{
+                    alignSelf: 'center',
+                    width: '60%',
+                }}
+                copyText={copyText}
+                successMessage="Successfully copied config values"
+            >
+                Copy Values
+            </CopyButton>
         </div>
     );
 }
