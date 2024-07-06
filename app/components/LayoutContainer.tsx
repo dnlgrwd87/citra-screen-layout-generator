@@ -1,5 +1,6 @@
 'use client';
 
+import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates';
 import { Box } from '@mui/material';
 import { Dispatch, SetStateAction, useMemo, useRef, useState } from 'react';
 import { DISPLAY_SCALE, GAMES } from '../constants';
@@ -83,25 +84,32 @@ export default function LayoutContainer({ initialState }: Props) {
                     </div>
                 </div>
 
-                <Box
-                    className="bg-black relative"
-                    sx={{
-                        width: resolution.width * DISPLAY_SCALE,
-                        height: resolution.height * DISPLAY_SCALE,
-                    }}
-                >
-                    <Screen
-                        imageSrc={game.topImgSrc}
-                        screenData={topScreen}
-                        onChange={(changes) => onScreenChange(setTopScreen, changes)}
-                    />
+                <div className="flex flex-col gap-3">
+                    <div className="flex items-center self-center gap-2 text-sm">
+                        <TipsAndUpdatesIcon fontSize="small" />
+                        Right click a screen to quickly position it
+                    </div>
 
-                    <Screen
-                        imageSrc={game.bottomImgSrc}
-                        screenData={bottomScreen}
-                        onChange={(changes) => onScreenChange(setBottomScreen, changes)}
-                    />
-                </Box>
+                    <Box
+                        className="bg-black relative"
+                        sx={{
+                            width: resolution.width * DISPLAY_SCALE,
+                            height: resolution.height * DISPLAY_SCALE,
+                        }}
+                    >
+                        <Screen
+                            imageSrc={game.topImgSrc}
+                            screenData={topScreen}
+                            onChange={(changes) => onScreenChange(setTopScreen, changes)}
+                        />
+
+                        <Screen
+                            imageSrc={game.bottomImgSrc}
+                            screenData={bottomScreen}
+                            onChange={(changes) => onScreenChange(setBottomScreen, changes)}
+                        />
+                    </Box>
+                </div>
             </div>
         </div>
     );
