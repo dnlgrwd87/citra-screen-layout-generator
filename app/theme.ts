@@ -17,7 +17,7 @@ const theme = createTheme({
             styleOverrides: {
                 root: {
                     backgroundColor: 'white',
-                    height: 44,
+                    height: 38,
                 },
             },
         },
