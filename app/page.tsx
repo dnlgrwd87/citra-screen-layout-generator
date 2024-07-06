@@ -1,3 +1,4 @@
+import InvalidLayout from './components/InvalidLayout';
 import LayoutContainer from './components/LayoutContainer';
 import MountedComponent from './components/MountedComponent';
 import { GAMES } from './constants';
@@ -5,12 +6,18 @@ import { StateFromParamsSchema } from './schemas';
 import { InitialState, ParsedParams } from './types';
 import { decodeParams } from './utils';
 
-export default function Home({ searchParams }: any) {
-    let initialState: InitialState | null;
+interface Props {
+    searchParams: {
+        id?: string;
+    };
+}
+
+export default function Home({ searchParams }: Props) {
+    let initialState: InitialState | null = null;
     let invalidParams = false;
 
     const getInitialState = (): InitialState | null => {
-        if (!Object.keys(searchParams).length) {
+        if (!searchParams.id) {
             return null;
         }
 
@@ -47,12 +54,10 @@ export default function Home({ searchParams }: any) {
     return (
         <main className="flex justify-center p-8">
             {invalidParams ? (
-                <div>
-                    <h1>Could not generate layout from url</h1>
-                </div>
+                <InvalidLayout />
             ) : (
                 <MountedComponent>
-                    <LayoutContainer initialState={initialState!} />
+                    <LayoutContainer initialState={initialState} />
                 </MountedComponent>
             )}
         </main>

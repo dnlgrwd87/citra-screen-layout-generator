@@ -13,7 +13,7 @@ import GenerateConfigButton from './GenerageConfigButton';
 import Screen from './Screen';
 
 interface Props {
-    initialState?: InitialState;
+    initialState: InitialState | null;
 }
 
 export default function LayoutContainer({ initialState }: Props) {
