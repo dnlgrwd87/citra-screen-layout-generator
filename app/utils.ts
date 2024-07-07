@@ -45,7 +45,7 @@ export const decodeParams = (data: string): string => {
     return Buffer.from(data, 'base64').toString('ascii');
 };
 
-export const getInferedResolution = (): Resolution => {
+export const getInferredResolution = (): Resolution => {
     const userScreenWidth = window.outerWidth;
     const resolutions = [...PRESET_RESOLUTIONS.sort((a, b) => a.width - b.width)];
 
