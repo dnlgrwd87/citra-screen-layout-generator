@@ -10,7 +10,7 @@ export default function InvalidLayout() {
         <div className="text-center py-8">
             <h1 className="mb-4 text-4xl font-semibold text-primary-600">Uh-oh!</h1>
             <p className="mb-10 text-2xl font-semibold text-gray-800">
-                We can't find that custom layout.
+                {"We can't find that custom layout."}
             </p>
             <Button
                 onClick={() => {

@@ -24,24 +24,24 @@ export type Game = {
 };
 
 export type Resolution = {
-    id: string;
+    id?: string;
     width: number;
     height: number;
     displayName?: string;
 };
 
 export type ParsedParams = {
-    resolutionWidth: number;
-    resolutionHeight: number;
-    gameId: GameKey;
-    topX: number;
-    topY: number;
-    topWidth: number;
-    topHeight: number;
-    bottomX: number;
-    bottomY: number;
-    bottomWidth: number;
-    bottomHeight: number;
+    gId: GameKey;
+    rw: number;
+    rh: number;
+    tx: number;
+    ty: number;
+    tw: number;
+    th: number;
+    bx: number;
+    by: number;
+    bw: number;
+    bh: number;
 };
 
 export type InitialState = {

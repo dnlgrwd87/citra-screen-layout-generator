@@ -1,7 +1,8 @@
 import { Buffer } from 'buffer';
 import { Rnd } from 'react-rnd';
-import { DISPLAY_SCALE, PRESET_RESOLUTIONS, SCREEN_RATIOS } from './constants';
-import { Game, Resolution, ScreenData, ScreenLocation } from './types';
+import { DISPLAY_SCALE, GAMES, PRESET_RESOLUTIONS, SCREEN_RATIOS } from './constants';
+import { StateFromParamsSchema } from './schemas';
+import { Game, InitialState, ParsedParams, Resolution, ScreenData, ScreenLocation } from './types';
 
 export const updateScreenData = (screen: Rnd, { width, height, x, y }: ScreenData) => {
     screen.updatePosition({ x, y });
@@ -14,27 +15,23 @@ export const getShareUrl = (
     resolution: Resolution,
     game: Game
 ) => {
-    const layoutState = {
-        resolutionWidth: resolution.width,
-        resolutionHeight: resolution.height,
-        gameId: game.id,
-        topX: topScreen.x,
-        topY: topScreen.y,
-        topWidth: topScreen.width,
-        topHeight: topScreen.height,
-        bottomX: bottomScreen.x,
-        bottomY: bottomScreen.y,
-        bottomWidth: bottomScreen.width,
-        bottomHeight: bottomScreen.height,
-    };
-
     const params = {
-        id: encodeParams(JSON.stringify(layoutState)),
-    };
+        gId: game.id,
+        rw: resolution.width,
+        rh: resolution.height,
+        tx: topScreen.x,
+        ty: topScreen.y,
+        tw: topScreen.width,
+        th: topScreen.height,
+        bx: bottomScreen.x,
+        by: bottomScreen.y,
+        bw: bottomScreen.width,
+        bh: bottomScreen.height,
+    } as any;
 
-    const queryString = new URLSearchParams(params).toString();
+    const queryString = encodeParams(new URLSearchParams(params).toString());
 
-    return `${window.location.origin}?${queryString}`;
+    return `${window.location.origin}?id=${queryString}`;
 };
 
 export const encodeParams = (data: string) => {
@@ -124,4 +121,44 @@ const getVeritcalLayout = (resolution: Resolution): { [key in ScreenLocation]: S
     };
 
     return { top, bottom };
+};
+
+export const getInitialStateFromParams = (searchParams: { id?: string }): InitialState | null => {
+    if (!searchParams.id) {
+        return null;
+    }
+
+    // decode the id query param, which returns a query param string
+    const decodedParams = decodeParams(searchParams.id);
+
+    // get ready to build a new object from the query param string
+    const params: any = {};
+
+    // @ts-ignore
+    for (const [key, val] of new URLSearchParams(decodedParams).entries()) {
+        params[key] = !isNaN(Number(val)) ? Number(val) : val;
+    }
+
+    // validate and return the parsed params
+    const parsedParams = StateFromParamsSchema.parse(params) as ParsedParams;
+
+    return {
+        resolution: {
+            width: parsedParams.rw,
+            height: parsedParams.rh,
+        },
+        game: GAMES[parsedParams.gId],
+        topScreen: {
+            x: parsedParams.tx,
+            y: parsedParams.ty,
+            width: parsedParams.tw,
+            height: parsedParams.th,
+        },
+        bottomScreen: {
+            x: parsedParams.bx,
+            y: parsedParams.by,
+            width: parsedParams.bw,
+            height: parsedParams.bh,
+        },
+    };
 };

@@ -9,7 +9,9 @@ export default function NotFound() {
     return (
         <div className="text-center py-8">
             <h1 className="mb-4 text-4xl font-semibold text-primary-600">Uh-oh!</h1>
-            <p className="mb-10 text-2xl font-semibold text-gray-800">We can't find that page.</p>
+            <p className="mb-10 text-2xl font-semibold text-gray-800">
+                {"We can't find that page."}
+            </p>
             <Button
                 onClick={() => {
                     router.push('/');
