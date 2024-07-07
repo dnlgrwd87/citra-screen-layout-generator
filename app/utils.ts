@@ -1,6 +1,6 @@
 import { Buffer } from 'buffer';
 import { Rnd } from 'react-rnd';
-import { DISPLAY_SCALE, GAMES, PRESET_RESOLUTIONS, SCREEN_RATIOS } from './constants';
+import { DISPLAY_SCALE, GAMES, SCREEN_RATIOS } from './constants';
 import { StateFromParamsSchema } from './schemas';
 import { Game, InitialState, ParsedParams, Resolution, ScreenData, ScreenLocation } from './types';
 
@@ -40,25 +40,6 @@ export const encodeParams = (data: string) => {
 
 export const decodeParams = (data: string): string => {
     return Buffer.from(data, 'base64').toString('ascii');
-};
-
-export const getInferredResolution = (): Resolution => {
-    const userScreenWidth = window.outerWidth;
-    const resolutions = [...PRESET_RESOLUTIONS.sort((a, b) => a.width - b.width)];
-
-    let targetRes = resolutions[0];
-    let diff = targetRes.width;
-
-    resolutions.forEach((res) => {
-        const currentDiff = Math.abs(res.width - userScreenWidth);
-
-        if (currentDiff < diff) {
-            diff = currentDiff;
-            targetRes = res;
-        }
-    });
-
-    return targetRes;
 };
 
 export const getDefaultScreenData = (

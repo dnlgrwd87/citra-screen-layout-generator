@@ -5,7 +5,7 @@ import { Box } from '@mui/material';
 import { Dispatch, SetStateAction, useMemo, useRef, useState } from 'react';
 import { DISPLAY_SCALE, GAMES } from '../constants';
 import { InitialState, Resolution, ScreenData } from '../types';
-import { getDefaultScreenData, getInferredResolution, getShareUrl } from '../utils';
+import { getDefaultScreenData, getShareUrl } from '../utils';
 import CopyButton from './CopyButton';
 import CustomResolution from './CustomResolution';
 import GameSelector from './GameSelector';
@@ -17,7 +17,12 @@ interface Props {
 }
 
 export default function LayoutContainer({ initialState }: Props) {
-    const defaultResolution = useRef(initialState?.resolution || getInferredResolution());
+    const defaultResolution = useRef(
+        initialState?.resolution || {
+            width: window.screen.width,
+            height: window.screen.height,
+        }
+    );
     const defaultScreenData = useRef(
         initialState
             ? {

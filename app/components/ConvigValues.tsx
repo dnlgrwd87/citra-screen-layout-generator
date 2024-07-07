@@ -1,6 +1,5 @@
 'use client';
 
-import ContentCopy from '@mui/icons-material/ContentCopy';
 import { DISPLAY_SCALE } from '../constants';
 import { ScreenData } from '../types';
 import CopyButton from './CopyButton';
@@ -17,12 +16,13 @@ export default function ConfigValues({ topScreen, bottomScreen }: Props) {
         const left = x;
         const right = x + width;
 
-        // We divide by display scale to get actual values, since we multiplied by it initially
+        // We divide by display scale to get actual values, since we multiplied by it initially.
+        // Then we multiply by the device pixel reatio to get the actual resolution.
         return {
-            top: top / DISPLAY_SCALE,
-            bottom: bottom / DISPLAY_SCALE,
-            left: left / DISPLAY_SCALE,
-            right: right / DISPLAY_SCALE,
+            top: (top / DISPLAY_SCALE) * window.devicePixelRatio,
+            bottom: (bottom / DISPLAY_SCALE) * window.devicePixelRatio,
+            left: (left / DISPLAY_SCALE) * window.devicePixelRatio,
+            right: (right / DISPLAY_SCALE) * window.devicePixelRatio,
         };
     };
 
@@ -40,6 +40,15 @@ export default function ConfigValues({ topScreen, bottomScreen }: Props) {
             `custom_bottom_bottom=${bottom.bottom}`,
             `custom_bottom_left=${bottom.left}`,
             `custom_bottom_right=${bottom.right}`,
+            'custom_layout\\default=false',
+            'custom_top_left\\default=false',
+            'custom_top_top\\default=false',
+            'custom_top_right\\default=false',
+            'custom_top_bottom\\default=false',
+            'custom_bottom_left\\default=false',
+            'custom_bottom_top\\default=false',
+            'custom_bottom_right\\default=false',
+            'custom_bottom_bottom\\default=false',
         ];
     };
 
