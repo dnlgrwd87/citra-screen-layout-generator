@@ -2,6 +2,7 @@ import { Menu, MenuItem } from '@mui/material';
 import Image from 'next/image';
 import React, { useEffect, useRef } from 'react';
 import { Rnd, RndDragCallback, Props as RndProps, RndResizeCallback } from 'react-rnd';
+import { DISPLAY_SCALE } from '../constants';
 import { ScreenData } from '../types';
 
 interface Props extends RndProps {
@@ -83,6 +84,49 @@ export default function Screen(props: Props) {
         props.onChange({ x, y });
     };
 
+    const renderDebug = () => {
+        const x = props.screenData.x / DISPLAY_SCALE;
+        const y = props.screenData.y / DISPLAY_SCALE;
+        const width = props.screenData.width / DISPLAY_SCALE;
+        const height = props.screenData.height / DISPLAY_SCALE;
+        const top = y;
+        const bottom = y + height;
+        const left = x;
+        const right = x + width;
+
+        return (
+            <div className="flex flex-col h-full w-full bg-white items-center justify-center border-2 border-green-500">
+                <p>
+                    x: {x}, y: {y}
+                </p>
+                <p>
+                    {width} x {height}
+                </p>
+                <p>top: {top}</p>
+                <p>bottom: {bottom}</p>
+                <p>left: {left}</p>
+                <p>right: {right}</p>
+            </div>
+        );
+    };
+
+    const renderScreen = () => {
+        if (process.env.NODE_ENV === 'development') {
+            return renderDebug();
+        }
+
+        return (
+            <Image
+                fill
+                priority
+                sizes="100vh"
+                src={props.imageSrc}
+                className="w-full h-full pointer-events-none"
+                alt="screen-image"
+            />
+        );
+    };
+
     return (
         <Rnd
             ref={screen}
@@ -97,14 +141,7 @@ export default function Screen(props: Props) {
                 onContextMenu={handleContextMenu}
                 style={{ cursor: 'move' }}
             >
-                <Image
-                    fill
-                    priority
-                    sizes="100vh"
-                    src={props.imageSrc}
-                    className="w-full h-full pointer-events-none"
-                    alt="screen-image"
-                />
+                {renderScreen()}
                 <Menu
                     open={contextMenu !== null}
                     onClose={onMenuClose}
