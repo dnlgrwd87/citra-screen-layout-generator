@@ -4,8 +4,9 @@ import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates';
 import { Box } from '@mui/material';
 import { Dispatch, SetStateAction, useMemo, useRef, useState } from 'react';
 import { DISPLAY_SCALE, GAMES } from '../constants';
+import { useResolutionContext } from '../contexts/resolutionContext';
 import { InitialState, Resolution, ScreenData } from '../types';
-import { getDefaultResolution, getDefaultScreenData, getShareUrl } from '../utils';
+import { getDefaultScreenData, getShareUrl } from '../utils';
 import CopyButton from './CopyButton';
 import CustomResolution from './CustomResolution';
 import GameSelector from './GameSelector';
@@ -17,19 +18,19 @@ interface Props {
 }
 
 export default function LayoutContainer({ initialState }: Props) {
-    const defaultResolution = useRef(initialState?.resolution || getDefaultResolution());
+    const { resolution, setResolution } = useResolutionContext();
+
     const defaultScreenData = useRef(
         initialState
             ? {
                   top: initialState.topScreen,
                   bottom: initialState.bottomScreen,
               }
-            : getDefaultScreenData(defaultResolution.current)
+            : getDefaultScreenData(resolution)
     );
 
     const [topScreen, setTopScreen] = useState(defaultScreenData.current.top);
     const [bottomScreen, setBottomScreen] = useState(defaultScreenData.current.bottom);
-    const [resolution, setResolution] = useState(defaultResolution.current);
     const [game, setGame] = useState(initialState?.game || GAMES.zelda);
 
     const shareUrl = useMemo(

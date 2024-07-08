@@ -1,7 +1,10 @@
+'use client';
+
 import InvalidLayout from './components/InvalidLayout';
 import LayoutContainer from './components/LayoutContainer';
-import MountedComponent from './components/MountedComponent';
-import { getInitialStateFromParams } from './utils';
+import { ResolutionProvider } from './contexts/resolutionContext';
+import useMounted from './hooks/useMounted';
+import { getDefaultResolution, getInitialStateFromParams } from './utils';
 
 interface Props {
     searchParams: {
@@ -10,15 +13,22 @@ interface Props {
 }
 
 export default function Home({ searchParams }: Props) {
+    const { mounted } = useMounted();
+
+    if (!mounted) {
+        return null;
+    }
+
     try {
         const initialState = getInitialStateFromParams(searchParams);
+        const defaultResolution = initialState?.resolution || getDefaultResolution();
 
         return (
-            <main className="flex justify-center">
-                <MountedComponent>
+            <ResolutionProvider defaultResolution={defaultResolution}>
+                <div className="flex justify-center">
                     <LayoutContainer initialState={initialState} />
-                </MountedComponent>
-            </main>
+                </div>
+            </ResolutionProvider>
         );
     } catch (e) {
         return <InvalidLayout />;
