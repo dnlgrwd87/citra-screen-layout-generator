@@ -1,6 +1,6 @@
 import { Game, GameKey, Resolution } from './types';
 
-export const DISPLAY_SCALE = 0.5;
+export const DISPLAY_SCALE = 0.35;
 
 export const GAMES: { [key in GameKey]: Game } = {
     zelda: {

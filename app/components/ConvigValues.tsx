@@ -17,12 +17,11 @@ export default function ConfigValues({ topScreen, bottomScreen }: Props) {
         const right = x + width;
 
         // We divide by display scale to get actual values, since we multiplied by it initially.
-        // Then we multiply by the device pixel reatio to get the actual resolution.
         return {
-            top: (top / DISPLAY_SCALE) * window.devicePixelRatio,
-            bottom: (bottom / DISPLAY_SCALE) * window.devicePixelRatio,
-            left: (left / DISPLAY_SCALE) * window.devicePixelRatio,
-            right: (right / DISPLAY_SCALE) * window.devicePixelRatio,
+            top: top / DISPLAY_SCALE,
+            bottom: bottom / DISPLAY_SCALE,
+            left: left / DISPLAY_SCALE,
+            right: right / DISPLAY_SCALE,
         };
     };
 

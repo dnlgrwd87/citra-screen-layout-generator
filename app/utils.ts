@@ -42,6 +42,17 @@ export const decodeParams = (data: string): string => {
     return Buffer.from(data, 'base64').toString('ascii');
 };
 
+export const getDefaultResolution = (): Resolution => {
+    // This is could be 1, or it could be more for high density pixel displays.
+    // Rounding to the nearest 0.5 is a decent guess.
+    const pixelRatio = Math.round(window.devicePixelRatio * 2) / 2;
+
+    return {
+        width: window.screen.width * pixelRatio,
+        height: window.screen.height * pixelRatio,
+    };
+};
+
 export const getDefaultScreenData = (
     resolution: Resolution
 ): { [key in ScreenLocation]: ScreenData } => {
