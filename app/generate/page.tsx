@@ -12,8 +12,9 @@ interface Props {
     };
 }
 
-export default function Home({ searchParams }: Props) {
+export default function Generate({ searchParams }: Props) {
     const { mounted } = useMounted();
+
 
     if (!mounted) {
         return null;
@@ -21,6 +22,7 @@ export default function Home({ searchParams }: Props) {
 
     try {
         const initialState = getInitialStateFromParams(searchParams);
+        console.log('initial state', initialState);
 
         return (
             <ResolutionProvider defaultResolution={initialState?.resolution}>

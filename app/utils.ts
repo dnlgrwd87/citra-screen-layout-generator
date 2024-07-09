@@ -31,8 +31,6 @@ export const getShareUrl = (
 
     const queryString = encodeParams(new URLSearchParams(params).toString());
 
-    console.log(queryString);
-
     return `${window.location.origin}/generate?id=${queryString}`;
 };
 
@@ -116,6 +114,7 @@ const getVeritcalLayout = (resolution: Resolution): { [key in ScreenLocation]: S
 };
 
 export const getInitialStateFromParams = (searchParams: { id?: string }): InitialState | null => {
+    console.log('search params', searchParams);
     if (!searchParams.id) {
         return null;
     }
@@ -133,8 +132,6 @@ export const getInitialStateFromParams = (searchParams: { id?: string }): Initia
 
     // validate and return the parsed params
     const parsedParams = StateFromParamsSchema.parse(params) as ParsedParams;
-
-    console.log(parsedParams);
 
     return {
         resolution: {
