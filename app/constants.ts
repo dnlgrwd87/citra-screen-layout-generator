@@ -4,14 +4,26 @@ export const GAMES: { [key in GameKey]: Game } = {
     zelda: {
         id: 'zelda',
         name: 'Zelda: OoT',
-        topImgSrc: '/images/top-screen-oot.png',
-        bottomImgSrc: '/images/bottom-screen-oot.png',
+        topImgSrc: '/images/oot-top.png',
+        bottomImgSrc: '/images/oot-bottom.png',
     },
     pkmn: {
         id: 'pkmn',
-        name: 'Pokémon',
-        topImgSrc: '/images/top-screen-pkmn.png',
-        bottomImgSrc: '/images/bottom-screen-pkmn.png',
+        name: 'Pokémon US / UM',
+        topImgSrc: '/images/pkmn-top.png',
+        bottomImgSrc: '/images/pkmn-bottom.png',
+    },
+    marioKart: {
+        id: 'marioKart',
+        name: 'Mario Kart 7',
+        topImgSrc: '/images/mario-kart-top.png',
+        bottomImgSrc: '/images/mario-kart-bottom.png',
+    },
+    fireEmblem: {
+        id: 'fireEmblem',
+        name: 'Fite Emblem: Fates',
+        topImgSrc: '/images/fire-emblem-top.png',
+        bottomImgSrc: '/images/fire-emblem-bottom.png',
     },
 };
 

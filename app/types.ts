@@ -1,4 +1,4 @@
-export type GameKey = 'zelda' | 'pkmn';
+export type GameKey = 'zelda' | 'pkmn' | 'marioKart' | 'fireEmblem';
 
 export type ScreenLocation = 'top' | 'bottom';
 
