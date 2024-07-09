@@ -1,4 +1,5 @@
 import { ThemeProvider } from '@mui/material';
+import { Analytics } from '@vercel/analytics/react';
 import type { Metadata } from 'next';
 import Navbar from './components/Navbar';
 import './globals.css';
@@ -20,6 +21,7 @@ export default function RootLayout({
                 <body className="bg-gray-100">
                     <Navbar />
                     <div className="p-8">{children}</div>
+                    <Analytics />
                 </body>
             </ThemeProvider>
         </html>
