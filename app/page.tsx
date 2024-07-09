@@ -7,7 +7,7 @@ export default function Home() {
                 <h1 className="mb-8 text-4xl">Welcome!</h1>
                 <div className="mb-8 text-lg font-medium text-gray-900">
                     <div>
-                        Citra Layout Generator is a tool facilitates creating custom screen layouts
+                        Citra Layout Generator is a tool that facilitates creating custom screen layouts
                         for the Citra emulator.
                     </div>
                     <div>
