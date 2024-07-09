@@ -1,7 +1,7 @@
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { useState } from 'react';
-import { GAMES } from '../constants';
-import { Game, GameKey } from '../types';
+import { GAMES } from '../../constants';
+import { Game, GameKey } from '../../types';
 
 interface Props {
     defaultGame?: Game;

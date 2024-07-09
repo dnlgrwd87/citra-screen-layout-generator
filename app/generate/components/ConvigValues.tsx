@@ -1,7 +1,7 @@
 'use client';
 
-import { ScreenData } from '../types';
-import CopyButton from './CopyButton';
+import { ScreenData } from '../../types';
+import CopyButton from '../../components/CopyButton';
 
 interface Props {
     topScreen: ScreenData;

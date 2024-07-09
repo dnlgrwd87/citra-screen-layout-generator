@@ -1,8 +1,8 @@
 import { Button, ButtonProps } from '@mui/material';
 import { useState } from 'react';
-import { ScreenData } from '../types';
-import ConfigValues from './ConvigValues';
-import CustomModal from './CustomModal';
+import CustomModal from '../../components/CustomModal';
+import ConfigValues from '../../generate/components/ConvigValues';
+import { ScreenData } from '../../types';
 
 interface Props extends ButtonProps {
     topScreen: ScreenData;

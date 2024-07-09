@@ -2,8 +2,8 @@ import { Menu, MenuItem } from '@mui/material';
 import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react';
 import { Rnd, RndDragCallback, Props as RndProps, RndResizeCallback } from 'react-rnd';
-import { ScreenData } from '../types';
-import { DISPLAY_SCALE } from '../constants';
+import { ScreenData } from '../../types';
+import { useResolutionContext } from '../contexts/resolutionContext';
 
 interface Props extends RndProps {
     imageSrc: string;
@@ -17,6 +17,8 @@ export default function Screen(props: Props) {
         mouseX: number;
         mouseY: number;
     } | null>(null);
+
+    const { displayScale } = useResolutionContext();
 
     const screen = useRef<Rnd>(null);
 
@@ -135,7 +137,7 @@ export default function Screen(props: Props) {
             onDragStop={onDragStop}
             onResizeStop={onResizeStop}
             default={props.screenData}
-            scale={DISPLAY_SCALE}
+            scale={displayScale}
         >
             <div
                 className="w-full h-full relative"

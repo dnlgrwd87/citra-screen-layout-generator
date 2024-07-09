@@ -1,6 +1,6 @@
 import { Alert, Button, FormControl, Snackbar, TextField } from '@mui/material';
 import { useState } from 'react';
-import { Resolution } from '../types';
+import { Resolution } from '../../types';
 import ResolutionMenu from './ResolutionMenu';
 
 interface Props {

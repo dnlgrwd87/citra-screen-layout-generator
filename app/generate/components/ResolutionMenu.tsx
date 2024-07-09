@@ -1,8 +1,8 @@
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { Button, Menu, MenuItem } from '@mui/material';
 import React from 'react';
-import { PRESET_RESOLUTIONS } from '../constants';
-import { Resolution } from '../types';
+import { PRESET_RESOLUTIONS } from '../../constants';
+import { Resolution } from '../../types';
 
 interface Props {
     onChange: (resolution: Resolution) => void;

@@ -31,7 +31,7 @@ export const getShareUrl = (
 
     const queryString = encodeParams(new URLSearchParams(params).toString());
 
-    return `${window.location.origin}?id=${queryString}`;
+    return `${window.location.origin}/generate?id=${queryString}`;
 };
 
 export const encodeParams = (data: string) => {

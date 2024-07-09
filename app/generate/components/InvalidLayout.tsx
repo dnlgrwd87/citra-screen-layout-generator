@@ -14,7 +14,7 @@ export default function InvalidLayout() {
             </p>
             <Button
                 onClick={() => {
-                    router.push('/');
+                    router.push('/generate');
                     router.refresh();
                 }}
             >

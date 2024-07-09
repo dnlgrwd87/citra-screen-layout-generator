@@ -3,14 +3,14 @@
 import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates';
 import { Box } from '@mui/material';
 import { Dispatch, SetStateAction, useMemo, useRef, useState } from 'react';
-import { DISPLAY_SCALE, GAMES } from '../constants';
+import CopyButton from '../../components/CopyButton';
+import { GAMES } from '../../constants';
+import { InitialState, Resolution, ScreenData } from '../../types';
+import { getDefaultScreenData, getShareUrl } from '../../utils';
+import GameSelector from '../components/GameSelector';
+import GenerateConfigButton from '../components/GenerageConfigButton';
 import { useResolutionContext } from '../contexts/resolutionContext';
-import { InitialState, Resolution, ScreenData } from '../types';
-import { getDefaultScreenData, getShareUrl } from '../utils';
-import CopyButton from './CopyButton';
 import CustomResolution from './CustomResolution';
-import GameSelector from './GameSelector';
-import GenerateConfigButton from './GenerageConfigButton';
 import Screen from './Screen';
 
 interface Props {
@@ -18,7 +18,7 @@ interface Props {
 }
 
 export default function LayoutContainer({ initialState }: Props) {
-    const { resolution, setResolution } = useResolutionContext();
+    const { resolution, setResolution, displayScale } = useResolutionContext();
 
     const defaultScreenData = useRef(
         initialState
@@ -93,16 +93,16 @@ export default function LayoutContainer({ initialState }: Props) {
 
                     <Box
                         sx={{
-                            width: resolution.width * DISPLAY_SCALE,
-                            height: resolution.height * DISPLAY_SCALE,
+                            width: resolution.width * displayScale,
+                            height: resolution.height * displayScale,
                             overflow: 'hidden',
-                            position: 'relative'
+                            position: 'relative',
                         }}
                     >
                         <Box
                             className="bg-black relative"
                             sx={{
-                                transform: `scale(${DISPLAY_SCALE})`,
+                                transform: `scale(${displayScale})`,
                                 transformOrigin: 'top left',
                                 position: 'absolute',
                                 width: resolution.width,

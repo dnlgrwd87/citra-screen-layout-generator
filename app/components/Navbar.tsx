@@ -28,18 +28,18 @@ export default function Navbar() {
                     </span>
                 </div>
                 <div className="flex gap-8 text-lg">
+                    <Link href="/" className={getLinkClass('/')}>
+                        Home
+                    </Link>
                     <span
-                        className={`${getLinkClass('/')} cursor-pointer`}
+                        className={`${getLinkClass('/generate')} cursor-pointer`}
                         onClick={() => {
-                            router.push('/');
+                            router.push('/generate');
                             router.refresh();
                         }}
                     >
-                        Generator
+                        Generate
                     </span>
-                    <Link href="/about" className={getLinkClass('/about')}>
-                        About
-                    </Link>
                 </div>
             </div>
         </nav>
