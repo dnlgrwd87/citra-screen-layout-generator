@@ -31,6 +31,8 @@ export const getShareUrl = (
 
     const queryString = encodeParams(new URLSearchParams(params).toString());
 
+    console.log(queryString);
+
     return `${window.location.origin}/generate?id=${queryString}`;
 };
 
@@ -131,6 +133,8 @@ export const getInitialStateFromParams = (searchParams: { id?: string }): Initia
 
     // validate and return the parsed params
     const parsedParams = StateFromParamsSchema.parse(params) as ParsedParams;
+
+    console.log(parsedParams);
 
     return {
         resolution: {
