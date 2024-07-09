@@ -10,7 +10,7 @@ import { getDefaultScreenData, getShareUrl } from '../../utils';
 import GameSelector from '../components/GameSelector';
 import GenerateConfigButton from '../components/GenerageConfigButton';
 import { useResolutionContext } from '../contexts/resolutionContext';
-import CustomResolution from './CustomResolution';
+import ResolutionSelector from './ResolutionSelector';
 import Screen from './Screen';
 
 interface Props {
@@ -61,7 +61,7 @@ export default function LayoutContainer({ initialState }: Props) {
             <div className="flex flex-col items-center gap-8">
                 <div className="flex flex-col gap-8">
                     <div className="min-w-60">
-                        <CustomResolution
+                        <ResolutionSelector
                             defaultResolution={resolution}
                             onChange={onResolutionChange}
                         />
