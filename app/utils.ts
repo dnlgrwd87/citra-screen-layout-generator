@@ -63,25 +63,22 @@ export const getDefaultScreenData = (
 };
 
 const getHorizontalLayout = (resolution: Resolution): { [key in ScreenLocation]: ScreenData } => {
-    const scaledHeight = resolution.height;
-    const scaledWidth = resolution.width;
-
     // Each screen with take up half the height of the container
-    const screenHeight = scaledHeight / 2;
+    const screenHeight = resolution.height / 2;
 
     const topWidth = (screenHeight * SCREEN_RATIOS.top.width) / SCREEN_RATIOS.top.height;
     const bottomWidth = (screenHeight * SCREEN_RATIOS.bottom.width) / SCREEN_RATIOS.bottom.height;
 
     return {
         top: {
-            x: (scaledWidth - topWidth) / 2,
+            x: (resolution.width - topWidth) / 2,
             y: 0,
             width: topWidth,
             height: screenHeight,
         },
         bottom: {
-            x: (scaledWidth - bottomWidth) / 2,
-            y: scaledHeight - screenHeight,
+            x: (resolution.width - bottomWidth) / 2,
+            y: resolution.height - screenHeight,
             width: bottomWidth,
             height: screenHeight,
         },
@@ -89,23 +86,20 @@ const getHorizontalLayout = (resolution: Resolution): { [key in ScreenLocation]:
 };
 
 const getVeritcalLayout = (resolution: Resolution): { [key in ScreenLocation]: ScreenData } => {
-    const scaledWidth = resolution.width;
-    const scaledHeight = resolution.height;
-
-    const topHeight = (scaledWidth * SCREEN_RATIOS.top.height) / SCREEN_RATIOS.top.width;
+    const topHeight = (resolution.width * SCREEN_RATIOS.top.height) / SCREEN_RATIOS.top.width;
 
     const top = {
         x: 0,
-        y: Math.max(scaledHeight / 2 - topHeight, 0),
-        width: scaledWidth,
+        y: Math.max(resolution.height / 2 - topHeight, 0),
+        width: resolution.width,
         height: topHeight,
     };
 
-    const bottomHeight = scaledHeight - topHeight - 2 * top.y;
+    const bottomHeight = resolution.height - topHeight - 2 * top.y;
     const bottomWidth = (bottomHeight * SCREEN_RATIOS.bottom.width) / SCREEN_RATIOS.bottom.height;
 
     const bottom = {
-        x: (scaledWidth - bottomWidth) / 2,
+        x: (resolution.width - bottomWidth) / 2,
         y: top.y + top.height,
         width: bottomWidth,
         height: bottomHeight,
