@@ -1,4 +1,5 @@
 import { Buffer } from 'buffer';
+import { ReadonlyURLSearchParams } from 'next/navigation';
 import { Rnd } from 'react-rnd';
 import { GAMES, SCREEN_RATIOS } from './constants';
 import { StateFromParamsSchema } from './schemas';
@@ -113,14 +114,17 @@ const getVeritcalLayout = (resolution: Resolution): { [key in ScreenLocation]: S
     return { top, bottom };
 };
 
-export const getInitialStateFromParams = (searchParams: { id?: string }): InitialState | null => {
-    console.log('search params', searchParams);
-    if (!searchParams.id) {
+export const getInitialStateFromParams = (
+    searchParams: ReadonlyURLSearchParams
+): InitialState | null => {
+    const id = searchParams.get('id');
+
+    if (!id) {
         return null;
     }
 
     // decode the id query param, which returns a query param string
-    const decodedParams = decodeParams(searchParams.id);
+    const decodedParams = decodeParams(id);
 
     // get ready to build a new object from the query param string
     const params: any = {};

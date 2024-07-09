@@ -1,20 +1,15 @@
 'use client';
 
+import { useSearchParams } from 'next/navigation';
 import useMounted from '../hooks/useMounted';
 import { getInitialStateFromParams } from '../utils';
 import InvalidLayout from './components/InvalidLayout';
 import LayoutContainer from './components/LayoutContainer';
 import { ResolutionProvider } from './contexts/resolutionContext';
 
-interface Props {
-    searchParams: {
-        id?: string;
-    };
-}
-
-export default function Generate({ searchParams }: Props) {
+export default function Generate() {
+    const searchParams = useSearchParams();
     const { mounted } = useMounted();
-
 
     if (!mounted) {
         return null;
@@ -22,7 +17,6 @@ export default function Generate({ searchParams }: Props) {
 
     try {
         const initialState = getInitialStateFromParams(searchParams);
-        console.log('initial state', initialState);
 
         return (
             <ResolutionProvider defaultResolution={initialState?.resolution}>
