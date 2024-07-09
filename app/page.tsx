@@ -2,9 +2,10 @@
 
 import InvalidLayout from './components/InvalidLayout';
 import LayoutContainer from './components/LayoutContainer';
+import { DEVICE_PIXEL_RATIO } from './constants';
 import { ResolutionProvider } from './contexts/resolutionContext';
 import useMounted from './hooks/useMounted';
-import { getDefaultResolution, getInitialStateFromParams } from './utils';
+import { getInitialStateFromParams } from './utils';
 
 interface Props {
     searchParams: {
@@ -21,7 +22,10 @@ export default function Home({ searchParams }: Props) {
 
     try {
         const initialState = getInitialStateFromParams(searchParams);
-        const defaultResolution = initialState?.resolution || getDefaultResolution();
+        const defaultResolution = initialState?.resolution || {
+            width: window.screen.width * DEVICE_PIXEL_RATIO,
+            height: window.screen.height * DEVICE_PIXEL_RATIO,
+        };
 
         return (
             <ResolutionProvider defaultResolution={defaultResolution}>

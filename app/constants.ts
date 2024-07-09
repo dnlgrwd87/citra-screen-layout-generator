@@ -1,6 +1,10 @@
 import { Game, GameKey, Resolution } from './types';
 
-export const DISPLAY_SCALE = 0.4;
+// This is could be 1, or it could be more for high density pixel displays.
+// Rounding to the nearest 0.5 is a decent guess.
+// We only care about this value on app start up and it should not change.
+export const DEVICE_PIXEL_RATIO = Math.round(window.devicePixelRatio * 2) / 2;
+export const DISPLAY_SCALE = (1 / DEVICE_PIXEL_RATIO) * 0.65;
 
 export const GAMES: { [key in GameKey]: Game } = {
     zelda: {
