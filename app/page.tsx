@@ -4,7 +4,7 @@ export default function Home() {
     return (
         <div className="flex p-10 justify-center">
             <div className="w-3/4">
-                <h1 className="mb-8 text-4xl">Welcome</h1>
+                <h1 className="mb-8 text-4xl">Welcome!</h1>
                 <div className="mb-8 text-lg font-medium text-gray-900">
                     <div>
                         Citra Layout Generator is a tool facilitates creating custom screen layouts
@@ -21,8 +21,8 @@ export default function Home() {
                         , and feel free to contribute!
                     </div>
                 </div>
-                <div className="text-md mb-2 font-medium">Steps</div>
-                <ul className="space-y-1 text-gray-800 list-decimal list-inside">
+                <div className="text-md mb-2 font-medium">How to use</div>
+                <ul className="space-y-1 text-gray-800 list-decimal list-inside text-sm">
                     <li>
                         Visit the{' '}
                         <Link href="/generate" className="text-blue-500">
