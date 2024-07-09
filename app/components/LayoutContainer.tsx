@@ -92,23 +92,35 @@ export default function LayoutContainer({ initialState }: Props) {
                     </div>
 
                     <Box
-                        className="bg-black relative"
                         sx={{
                             width: resolution.width * DISPLAY_SCALE,
                             height: resolution.height * DISPLAY_SCALE,
+                            overflow: 'hidden',
+                            position: 'relative'
                         }}
                     >
-                        <Screen
-                            imageSrc={game.topImgSrc}
-                            screenData={topScreen}
-                            onChange={(changes) => onScreenChange(setTopScreen, changes)}
-                        />
+                        <Box
+                            className="bg-black relative"
+                            sx={{
+                                transform: `scale(${DISPLAY_SCALE})`,
+                                transformOrigin: 'top left',
+                                position: 'absolute',
+                                width: resolution.width,
+                                height: resolution.height,
+                            }}
+                        >
+                            <Screen
+                                imageSrc={game.topImgSrc}
+                                screenData={topScreen}
+                                onChange={(changes) => onScreenChange(setTopScreen, changes)}
+                            />
 
-                        <Screen
-                            imageSrc={game.bottomImgSrc}
-                            screenData={bottomScreen}
-                            onChange={(changes) => onScreenChange(setBottomScreen, changes)}
-                        />
+                            <Screen
+                                imageSrc={game.bottomImgSrc}
+                                screenData={bottomScreen}
+                                onChange={(changes) => onScreenChange(setBottomScreen, changes)}
+                            />
+                        </Box>
                     </Box>
                 </div>
             </div>

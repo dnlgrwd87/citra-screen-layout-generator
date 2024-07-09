@@ -1,9 +1,9 @@
 import { Menu, MenuItem } from '@mui/material';
 import Image from 'next/image';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Rnd, RndDragCallback, Props as RndProps, RndResizeCallback } from 'react-rnd';
-import { DISPLAY_SCALE } from '../constants';
 import { ScreenData } from '../types';
+import { DISPLAY_SCALE } from '../constants';
 
 interface Props extends RndProps {
     imageSrc: string;
@@ -12,7 +12,8 @@ interface Props extends RndProps {
 }
 
 export default function Screen(props: Props) {
-    const [contextMenu, setContextMenu] = React.useState<{
+    const [showDebug, setShowDebug] = useState(false);
+    const [contextMenu, setContextMenu] = useState<{
         mouseX: number;
         mouseY: number;
     } | null>(null);
@@ -85,17 +86,20 @@ export default function Screen(props: Props) {
     };
 
     const renderDebug = () => {
-        const x = props.screenData.x / DISPLAY_SCALE;
-        const y = props.screenData.y / DISPLAY_SCALE;
-        const width = props.screenData.width / DISPLAY_SCALE;
-        const height = props.screenData.height / DISPLAY_SCALE;
-        const top = y;
-        const bottom = y + height;
-        const left = x;
-        const right = x + width;
+        const x = Math.round(props.screenData.x);
+        const y = Math.round(props.screenData.y);
+        const width = Math.round(props.screenData.width);
+        const height = Math.round(props.screenData.height);
+        const top = Math.round(y);
+        const bottom = Math.round(y + height);
+        const left = Math.round(x);
+        const right = Math.round(x + width);
 
         return (
-            <div className="flex flex-col h-full w-full bg-white items-center justify-center border-2 border-green-500">
+            <div
+                className="flex flex-col h-full w-full bg-white items-center justify-center border-2 border-green-500 scale"
+                style={{ fontSize: '1.8rem' }}
+            >
                 <p>
                     x: {x}, y: {y}
                 </p>
@@ -111,10 +115,6 @@ export default function Screen(props: Props) {
     };
 
     const renderScreen = () => {
-        if (process.env.NODE_ENV === 'development') {
-            return renderDebug();
-        }
-
         return (
             <Image
                 fill
@@ -135,13 +135,14 @@ export default function Screen(props: Props) {
             onDragStop={onDragStop}
             onResizeStop={onResizeStop}
             default={props.screenData}
+            scale={DISPLAY_SCALE}
         >
             <div
                 className="w-full h-full relative"
                 onContextMenu={handleContextMenu}
                 style={{ cursor: 'move' }}
             >
-                {renderScreen()}
+                {showDebug ? renderDebug() : renderScreen()}
                 <Menu
                     open={contextMenu !== null}
                     onClose={onMenuClose}
@@ -162,6 +163,16 @@ export default function Screen(props: Props) {
                 >
                     <MenuItem onClick={() => onCenter(centerX)}>Center X-Axis</MenuItem>
                     <MenuItem onClick={() => onCenter(centerY)}>Center Y-Axis</MenuItem>
+                    {process.env.NODE_ENV === 'development' && (
+                        <MenuItem
+                            onClick={() => {
+                                setShowDebug((debug) => !debug);
+                                onMenuClose();
+                            }}
+                        >
+                            Toggle Debug
+                        </MenuItem>
+                    )}
                 </Menu>
             </div>
         </Rnd>

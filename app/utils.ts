@@ -1,6 +1,6 @@
 import { Buffer } from 'buffer';
 import { Rnd } from 'react-rnd';
-import { DISPLAY_SCALE, GAMES, SCREEN_RATIOS } from './constants';
+import { GAMES, SCREEN_RATIOS } from './constants';
 import { StateFromParamsSchema } from './schemas';
 import { Game, InitialState, ParsedParams, Resolution, ScreenData, ScreenLocation } from './types';
 
@@ -62,8 +62,8 @@ export const getDefaultScreenData = (
 };
 
 const getHorizontalLayout = (resolution: Resolution): { [key in ScreenLocation]: ScreenData } => {
-    const scaledHeight = resolution.height * DISPLAY_SCALE;
-    const scaledWidth = resolution.width * DISPLAY_SCALE;
+    const scaledHeight = resolution.height;
+    const scaledWidth = resolution.width;
 
     // Each screen with take up half the height of the container
     const screenHeight = scaledHeight / 2;
@@ -73,43 +73,41 @@ const getHorizontalLayout = (resolution: Resolution): { [key in ScreenLocation]:
 
     return {
         top: {
-            x: Math.round((scaledWidth - topWidth) / 2),
+            x: (scaledWidth - topWidth) / 2,
             y: 0,
-            width: Math.round(topWidth),
-            height: Math.round(screenHeight),
+            width: topWidth,
+            height: screenHeight,
         },
         bottom: {
-            x: Math.round((scaledWidth - bottomWidth) / 2),
-            y: Math.round(scaledHeight - screenHeight),
-            width: Math.round(bottomWidth),
-            height: Math.round(screenHeight),
+            x: (scaledWidth - bottomWidth) / 2,
+            y: scaledHeight - screenHeight,
+            width: bottomWidth,
+            height: screenHeight,
         },
     };
 };
 
 const getVeritcalLayout = (resolution: Resolution): { [key in ScreenLocation]: ScreenData } => {
-    const scaledWidth = resolution.width * DISPLAY_SCALE;
-    const scaledHeight = resolution.height * DISPLAY_SCALE;
+    const scaledWidth = resolution.width;
+    const scaledHeight = resolution.height;
 
-    const topHeight = Math.round(
-        (scaledWidth * SCREEN_RATIOS.top.height) / SCREEN_RATIOS.top.width
-    );
+    const topHeight = (scaledWidth * SCREEN_RATIOS.top.height) / SCREEN_RATIOS.top.width;
 
     const top = {
         x: 0,
-        y: Math.max(Math.round(scaledHeight / 2 - topHeight), 0),
-        width: Math.round(scaledWidth),
-        height: Math.round(topHeight),
+        y: Math.max(scaledHeight / 2 - topHeight, 0),
+        width: scaledWidth,
+        height: topHeight,
     };
 
     const bottomHeight = scaledHeight - topHeight - 2 * top.y;
     const bottomWidth = (bottomHeight * SCREEN_RATIOS.bottom.width) / SCREEN_RATIOS.bottom.height;
 
     const bottom = {
-        x: Math.round((scaledWidth - bottomWidth) / 2),
-        y: Math.round(top.y + top.height),
-        width: Math.round(bottomWidth),
-        height: Math.round(bottomHeight),
+        x: (scaledWidth - bottomWidth) / 2,
+        y: top.y + top.height,
+        width: bottomWidth,
+        height: bottomHeight,
     };
 
     return { top, bottom };

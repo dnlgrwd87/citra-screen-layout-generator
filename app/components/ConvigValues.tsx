@@ -1,6 +1,5 @@
 'use client';
 
-import { DISPLAY_SCALE } from '../constants';
 import { ScreenData } from '../types';
 import CopyButton from './CopyButton';
 
@@ -18,10 +17,10 @@ export default function ConfigValues({ topScreen, bottomScreen }: Props) {
 
         // We divide by display scale to get actual values, since we multiplied by it initially.
         return {
-            top: top / DISPLAY_SCALE,
-            bottom: bottom / DISPLAY_SCALE,
-            left: left / DISPLAY_SCALE,
-            right: right / DISPLAY_SCALE,
+            top: Math.round(top),
+            bottom: Math.round(bottom),
+            left: Math.round(left),
+            right: Math.round(right),
         };
     };
 
