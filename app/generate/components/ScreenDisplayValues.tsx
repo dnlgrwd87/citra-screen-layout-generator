@@ -19,14 +19,14 @@ export default function ScreenDisplayValues({ topScreen, bottomScreen }: Props) 
         const bottom = getDisplayValues(bottomScreen);
 
         return [
-            `Top X Position: ${top.x}`,
-            `Top Y Position: ${top.y}`,
-            `Top Width: ${top.width}`,
-            `Top Height: ${top.height}`,
-            `Bottom X Position: ${bottom.x}`,
-            `Bottom Y Position: ${bottom.y}`,
-            `Bottom Width: ${bottom.width}`,
-            `Bottom Height: ${bottom.height}`,
+            `Top X Position: ${top.x}px`,
+            `Top Y Position: ${top.y}px`,
+            `Top Width: ${top.width}px`,
+            `Top Height: ${top.height}px`,
+            `Bottom X Position: ${bottom.x}px`,
+            `Bottom Y Position: ${bottom.y}px`,
+            `Bottom Width: ${bottom.width}px`,
+            `Bottom Height: ${bottom.height}px`,
         ];
     };
 
