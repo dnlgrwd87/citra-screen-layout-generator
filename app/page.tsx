@@ -5,12 +5,10 @@ export default function Home() {
         <div className="flex p-10 justify-center">
             <div className="w-3/4">
                 <h1 className="mb-8 text-4xl">Welcome!</h1>
-                <div className="mb-8 text-lg font-medium text-gray-900">
+                <div className="mb-8 text-md font-medium text-gray-900">
                     <div>
                         Citra Layout Generator is a tool that facilitates creating custom screen
                         layouts for the Citra3DS and Lime3DS emulators.
-                    </div>
-                    <div>
                         It is a work in progress. Please report any issues on the{' '}
                         <Link
                             href="https://github.com/dnlgrwd87/citra-screen-layout-generator"
