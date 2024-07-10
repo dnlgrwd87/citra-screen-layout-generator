@@ -1,7 +1,7 @@
 import { Button, ButtonProps } from '@mui/material';
 import { useState } from 'react';
 import CustomModal from '../../components/CustomModal';
-import ConfigValues from '../../generate/components/ConvigValues';
+import ScreenDisplayValues from './ScreenDisplayValues';
 import { ScreenData } from '../../types';
 
 interface Props extends ButtonProps {
@@ -17,7 +17,7 @@ export default function GenerateConfigButton(props: Props) {
     return (
         <>
             <Button {...buttonProps} onClick={() => setShowModal(true)}>
-                Generate Config
+                Get Values
             </Button>
             <CustomModal
                 open={showModal}
@@ -26,7 +26,7 @@ export default function GenerateConfigButton(props: Props) {
                     paddingTop: '20px',
                 }}
             >
-                <ConfigValues topScreen={topScreen} bottomScreen={bottomScreen} />
+                <ScreenDisplayValues topScreen={topScreen} bottomScreen={bottomScreen} />
             </CustomModal>
         </>
     );

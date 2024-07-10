@@ -8,8 +8,8 @@ import { GAMES } from '../../constants';
 import { InitialState, Resolution, ScreenData } from '../../types';
 import { getDefaultScreenData, getShareUrl } from '../../utils';
 import GameSelector from '../components/GameSelector';
-import GenerateConfigButton from '../components/GenerageConfigButton';
 import { useResolutionContext } from '../contexts/resolutionContext';
+import GetValuesButton from './GetValuesButton';
 import ResolutionSelector from './ResolutionSelector';
 import Screen from './Screen';
 
@@ -70,7 +70,7 @@ export default function LayoutContainer({ initialState }: Props) {
                         <div className="min-w-60">
                             <GameSelector defaultGame={game} onChange={setGame} />
                         </div>
-                        <GenerateConfigButton
+                        <GetValuesButton
                             className="shrink-0 h-full"
                             topScreen={topScreen}
                             bottomScreen={bottomScreen}
@@ -88,7 +88,7 @@ export default function LayoutContainer({ initialState }: Props) {
                 <div className="flex flex-col gap-3">
                     <div className="flex items-center self-center gap-2 text-sm text-gray-700">
                         <TipsAndUpdatesIcon fontSize="small" />
-                        Right click a screen to quickly position it
+                        Right click a screen for quick actions.
                     </div>
 
                     <Box

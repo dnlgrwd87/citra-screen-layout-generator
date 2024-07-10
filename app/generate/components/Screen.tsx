@@ -1,3 +1,4 @@
+import { getDisplayValues } from '@/app/utils';
 import { Menu, MenuItem } from '@mui/material';
 import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react';
@@ -12,7 +13,7 @@ interface Props extends RndProps {
 }
 
 export default function Screen(props: Props) {
-    const [showDebug, setShowDebug] = useState(false);
+    const [showValues, setShowValues] = useState(false);
     const [contextMenu, setContextMenu] = useState<{
         mouseX: number;
         mouseY: number;
@@ -35,6 +36,7 @@ export default function Screen(props: Props) {
 
     const handleContextMenu = (event: React.MouseEvent) => {
         event.preventDefault();
+
         setContextMenu(
             contextMenu === null
                 ? {
@@ -87,31 +89,27 @@ export default function Screen(props: Props) {
         props.onChange({ x, y });
     };
 
-    const renderDebug = () => {
-        const x = Math.round(props.screenData.x);
-        const y = Math.round(props.screenData.y);
-        const width = Math.round(props.screenData.width);
-        const height = Math.round(props.screenData.height);
-        const top = Math.round(y);
-        const bottom = Math.round(y + height);
-        const left = Math.round(x);
-        const right = Math.round(x + width);
+    const renderValues = () => {
+        const values = getDisplayValues(props.screenData);
+        const fontSize = `${(1 / displayScale) * 0.8}rem`;
 
         return (
             <div
-                className="flex flex-col h-full w-full bg-white items-center justify-center border-2 border-green-500 scale"
-                style={{ fontSize: '1.8rem' }}
+                className="flex flex-col h-full w-full bg-white items-center justify-center"
+                style={{ fontSize }}
             >
-                <p>
-                    x: {x}, y: {y}
-                </p>
-                <p>
-                    {width} x {height}
-                </p>
-                <p>top: {top}</p>
-                <p>bottom: {bottom}</p>
-                <p>left: {left}</p>
-                <p>right: {right}</p>
+                <pre>
+                    <p>
+                        width: {values.width}, height: {values.height}
+                    </p>
+                    <p>
+                        x: {values.x}, y: {values.y}
+                    </p>
+                    <p>top: {values.top}</p>
+                    <p>bottom: {values.bottom}</p>
+                    <p>left: {values.left}</p>
+                    <p>right: {values.right}</p>
+                </pre>
             </div>
         );
     };
@@ -144,7 +142,7 @@ export default function Screen(props: Props) {
                 onContextMenu={handleContextMenu}
                 style={{ cursor: 'move' }}
             >
-                {showDebug ? renderDebug() : renderScreen()}
+                {showValues ? renderValues() : renderScreen()}
                 <Menu
                     open={contextMenu !== null}
                     onClose={onMenuClose}
@@ -165,16 +163,14 @@ export default function Screen(props: Props) {
                 >
                     <MenuItem onClick={() => onCenter(centerX)}>Center X-Axis</MenuItem>
                     <MenuItem onClick={() => onCenter(centerY)}>Center Y-Axis</MenuItem>
-                    {process.env.NODE_ENV === 'development' && (
-                        <MenuItem
-                            onClick={() => {
-                                setShowDebug((debug) => !debug);
-                                onMenuClose();
-                            }}
-                        >
-                            Toggle Debug
-                        </MenuItem>
-                    )}
+                    <MenuItem
+                        onClick={() => {
+                            setShowValues((debug) => !debug);
+                            onMenuClose();
+                        }}
+                    >
+                        {showValues ? 'Hide' : 'Show'} Values
+                    </MenuItem>
                 </Menu>
             </div>
         </Rnd>

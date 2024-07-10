@@ -151,3 +151,20 @@ export const getInitialStateFromParams = (
         },
     };
 };
+
+export const getDisplayValues = ({ x, y, width, height }: ScreenData) => {
+    const bottom = y + height;
+    const right = x + width;
+
+    // We divide by display scale to get actual values, since we multiplied by it initially.
+    return {
+        x: Math.round(x),
+        y: Math.round(y),
+        width: Math.round(width),
+        height: Math.round(height),
+        top: Math.round(y),
+        bottom: Math.round(bottom),
+        left: Math.round(x),
+        right: Math.round(right),
+    };
+};
