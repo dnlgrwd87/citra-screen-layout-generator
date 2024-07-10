@@ -8,8 +8,8 @@ export default function Home() {
                 <div className="mb-8 text-md font-medium text-gray-900">
                     <div>
                         Citra Layout Generator is a tool that facilitates creating custom screen
-                        layouts for the Citra3DS and Lime3DS emulators.
-                        It is a work in progress. Please report any issues on the{' '}
+                        layouts for the Citra3DS and Lime3DS emulators. It is a work in progress.
+                        Please report any issues on the{' '}
                         <Link
                             href="https://github.com/dnlgrwd87/citra-screen-layout-generator"
                             className="text-blue-500"
@@ -48,7 +48,7 @@ export default function Home() {
                                         Copy the values in the <b>Config</b> tab.
                                     </li>
                                     <li>
-                                        Locate the <b>qt-config.init</b> file on your device. Find
+                                        Locate the <b>qt-config.ini</b> file on your device. Find
                                         the <b>[Layout]</b> section. Replace all the values in it
                                         with the values you copied earlier and save the file.
                                     </li>
