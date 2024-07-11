@@ -18,16 +18,16 @@ export const getShareUrl = (
 ) => {
     const params = {
         gId: game.id,
-        rw: resolution.width,
-        rh: resolution.height,
-        tx: topScreen.x,
-        ty: topScreen.y,
-        tw: topScreen.width,
-        th: topScreen.height,
-        bx: bottomScreen.x,
-        by: bottomScreen.y,
-        bw: bottomScreen.width,
-        bh: bottomScreen.height,
+        rw: Math.round(resolution.width),
+        rh: Math.round(resolution.height),
+        tx: Math.round(topScreen.x),
+        ty: Math.round(topScreen.y),
+        tw: Math.round(topScreen.width),
+        th: Math.round(topScreen.height),
+        bx: Math.round(bottomScreen.x),
+        by: Math.round(bottomScreen.y),
+        bw: Math.round(bottomScreen.width),
+        bh: Math.round(bottomScreen.height),
     } as any;
 
     const queryString = encodeParams(new URLSearchParams(params).toString());
