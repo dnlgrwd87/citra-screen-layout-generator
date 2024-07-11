@@ -29,8 +29,8 @@ export default function ResolutionSelector(props: Props) {
     return (
         <>
             <Button
-                id="demo-customized-button"
-                aria-controls={open ? 'demo-customized-menu' : undefined}
+                id="customized-button"
+                aria-controls={open ? 'customized-menu' : undefined}
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
                 variant="contained"
@@ -41,9 +41,9 @@ export default function ResolutionSelector(props: Props) {
                 Presets
             </Button>
             <Menu
-                id="demo-customized-menu"
+                id="customized-menu"
                 MenuListProps={{
-                    'aria-labelledby': 'demo-customized-button',
+                    'aria-labelledby': 'customized-button',
                 }}
                 anchorEl={anchorEl}
                 open={!!anchorEl}
