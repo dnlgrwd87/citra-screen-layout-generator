@@ -31,15 +31,12 @@ export default function Navbar() {
                     <Link href="/" className={getLinkClass('/')}>
                         Home
                     </Link>
-                    <span
-                        className={`${getLinkClass('/generate')} cursor-pointer`}
-                        onClick={() => {
-                            router.push('/generate');
-                            router.refresh();
-                        }}
+                    <Link
+                        href="/generate"
+                        className={getLinkClass('/generate')}
                     >
                         Generate
-                    </span>
+                    </Link>
                 </div>
             </div>
         </nav>
