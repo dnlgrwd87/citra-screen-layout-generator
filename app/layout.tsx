@@ -20,7 +20,7 @@ export default function RootLayout({
             <ThemeProvider theme={theme}>
                 <body className="bg-gray-100">
                     <Navbar />
-                    <div className="p-8">{children}</div>
+                    <div className="py-8">{children}</div>
                     <Analytics />
                 </body>
             </ThemeProvider>

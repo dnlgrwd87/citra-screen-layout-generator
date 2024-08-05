@@ -2,16 +2,16 @@ import Link from 'next/link';
 
 export default function Home() {
     return (
-        <div className="flex p-10 justify-center">
+        <div className="flex justify-center">
             <div className="w-3/4">
                 <h1 className="mb-8 text-4xl">Welcome!</h1>
                 <div className="mb-8 text-md font-medium text-gray-900">
                     <div>
                         Citra Layout Generator is a tool that facilitates creating custom screen
-                        layouts for the Citra3DS and Lime3DS emulators. It is a work in progress.
-                        Please report any issues on the{' '}
+                        layouts for the Citra3DS and Lime3DS emulators. This tool assumes that you
+                        will be playing in fullscreen mode. Please report any issues on the{' '}
                         <Link
-                            href="https://github.com/dnlgrwd87/citra-screen-layout-generator"
+                            href="https://github.com/dnlgrwd87/citra-screen-layout-generator/issues"
                             className="text-blue-500"
                         >
                             GitHub page
